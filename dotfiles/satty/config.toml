@@ -1,0 +1,31 @@
+# ~/nikkita-shell/dotfiles/satty/config.toml
+
+[general]
+fullscreen = false
+floating-hack = true                 # ask Hyprland for a floating window
+early-exit = ["all"]                 # close right after copying / saving
+initial-tool = "arrow"
+copy-command = "wl-copy"
+save-after-copy = true
+output-filename = "~/Pictures/screenshots/%Y-%m-%d_%H-%M-%S-annotated.png"
+actions-on-enter = ["save-to-clipboard"]
+actions-on-escape = ["exit"]
+annotation-size-factor = 1.5
+corner-roundness = 10
+primary-highlighter = "block"
+no-window-decoration = true
+
+[font]
+family = "Adwaita Sans"
+style = "Regular"
+
+# Arch Neutral palette: critical red, amber, Arch blue, green, light, dark
+[color-palette]
+palette = [
+    "#e05f65ff",
+    "#e0a84eff",
+    "#1793d1ff",
+    "#8cc265ff",
+    "#e0e0e0ff",
+    "#141414ff",
+]

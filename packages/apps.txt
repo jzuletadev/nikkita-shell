@@ -1,0 +1,13 @@
+# Personal apps (work + gaming). Not needed by the desktop itself: edit to taste.
+# Installed by:  ./install.sh --apps   (it also enables [multilib], which steam needs)
+docker
+docker-buildx
+docker-compose
+nodejs
+npm
+python-pip
+tmux
+mariadb-clients
+postgresql-libs
+zram-generator
+steam

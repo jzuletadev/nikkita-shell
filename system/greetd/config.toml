@@ -1,0 +1,9 @@
+# ~/nikkita-shell/system/greetd/config.toml
+# Installed as /etc/greetd/config.toml by scripts/install-greeter.sh.
+
+[terminal]
+vt = 1
+
+[default_session]
+command = "Hyprland --config /usr/share/nikkita-shell/system/greetd/hyprland.lua"
+user = "greeter"

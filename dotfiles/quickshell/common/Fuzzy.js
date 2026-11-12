@@ -1,0 +1,95 @@
+// ~/nikkita-shell/dotfiles/quickshell/common/Fuzzy.js
+//
+// The launcher's scoring. Two ways to match, keeping the best: as initials ("vsc" ->
+// Visual Studio Code) or greedy (rewarding consecutive letters and word starts).
+//
+// Fields are LEVELS, not weights: any name match beats any description match.
+// Otherwise "bra" ranks an app whose description matches as an acronym over Brave.
+//
+// A text that starts with what was typed is what was meant: PREFIX puts it over
+// any initials of the same letters ("files": Files before "Find Image Lens...").
+// Initials earn 4 more per letter than a run of letters, so it grows with them.
+.pragma library
+
+const START = 18, WORD = 12, CONSECUTIVE = 8, LOOSE = 2, GAP = -1, ACRONYM = 25, FIELD = 1000;
+const PREFIX = 10, PREFIX_PER_LETTER = 4;
+
+function isBoundary(c) {
+    return /\s/.test(c) || "-_./:([".includes(c);
+}
+
+function boundaries(t) {
+    const v = [];
+    for (let i = 0; i < t.length; i++)
+        if (i === 0 || isBoundary(t[i - 1]))
+            v.push(i);
+    return v;
+}
+
+function acronym(needle, text, lower) {
+    const f = boundaries(text);
+    let fromIdx = 0, total = ACRONYM;
+    for (const a of needle) {
+        if (/\s/.test(a))
+            continue;
+        let p = -1;
+        for (let k = fromIdx; k < f.length; k++)
+            if (lower[f[k]] === a) {
+                p = k;
+                break;
+            }
+        if (p < 0)
+            return null;
+        total += f[p] === 0 ? START : WORD;
+        fromIdx = p + 1;
+    }
+    return total - Math.floor(text.length / 8);
+}
+
+function greedy(needle, text, lower) {
+    let total = 0, i = 0, prev = -1;
+    for (const a of needle) {
+        if (/\s/.test(a))
+            continue;
+        const j = lower.indexOf(a, i);
+        if (j < 0)
+            return null;
+        const atWord = j > 0 && isBoundary(text[j - 1]);
+        total += j === 0 ? START : atWord ? WORD : prev === j - 1 ? CONSECUTIVE : LOOSE;
+        if (prev >= 0 && !atWord)
+            total += GAP * Math.min(20, j - prev - 1);
+        prev = j;
+        i = j + 1;
+    }
+    return total - Math.floor(text.length / 8);
+}
+
+function score(needle, haystack) {
+    if (!needle)
+        return 0;
+    if (!haystack)
+        return null;
+    const lower = haystack.toLowerCase();
+    const text = lower.length === haystack.length ? haystack : lower;
+    const lowNeedle = needle.toLowerCase();
+    const a = acronym(lowNeedle, text, lower.length === haystack.length ? lower : text);
+    const b = greedy(lowNeedle, text, lower.length === haystack.length ? lower : text);
+    const prefix = lower.startsWith(lowNeedle) ? PREFIX + PREFIX_PER_LETTER * lowNeedle.length + ACRONYM : 0;
+    if (a === null)
+        return b === null ? null : b + prefix;
+    if (b === null)
+        return a;
+    return Math.max(a, b + prefix);
+}
+
+function fields(needle, items) {
+    let best = null;
+    for (let n = 0; n < items.length; n++) {
+        const s = score(needle, items[n]);
+        if (s !== null) {
+            const v = s - FIELD * n;
+            best = best === null ? v : Math.max(best, v);
+        }
+    }
+    return best;
+}

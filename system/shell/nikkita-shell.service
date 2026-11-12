@@ -1,0 +1,29 @@
+# ~/nikkita-shell/system/shell/nikkita-shell.service
+#
+# The desktop shell (dotfiles/quickshell) as a user service: systemd brings it back
+# if it dies, so the panels, notifications and the password dialog never stay
+# gone. hyprland.lua starts it once the session's environment is in systemd;
+# install.sh copies it to ~/.config/systemd/user/.
+#
+#   systemctl --user restart nikkita-shell     restart the shell
+#   journalctl --user -u nikkita-shell         what it said, besides `qs log`
+
+[Unit]
+Description=Desktop shell (nikkita-shell, Quickshell)
+PartOf=graphical-session.target
+After=graphical-session.target
+# A shell that can't start (a broken edit) doesn't loop forever: five tries a minute.
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Service]
+# Quickshell's own crash handler would start a second copy beside the one systemd
+# brings back: one keeper is enough. -n: never two shells for one config.
+Environment=QS_DISABLE_CRASH_HANDLER=1
+ExecStart=/usr/bin/qs -n
+# Stopping or restarting the shell stops the shell, not what it opened: apps start
+# in units of their own (Commands.launch, through uwsm app), and anything that
+# still ends up in here (an app started some other way) is left running too.
+KillMode=process
+Restart=on-failure
+RestartSec=1

@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Written by Quickshell while qs runs (scripts/lint-qml.sh, qmlls): a path of this session
+dotfiles/quickshell/.qmlls.ini

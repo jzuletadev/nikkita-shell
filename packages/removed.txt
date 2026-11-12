@@ -1,0 +1,20 @@
+# ~/nikkita-shell/packages/removed.txt
+#
+# What earlier versions of this desktop installed and this one replaced. install.sh
+# offers to remove the ones still installed explicitly (default: no), with
+# `pacman -Rs`, which shows what goes, asks again, and refuses anything another
+# package needs. Tools you may use on your own (jq, 7zip, imagemagick, playerctl,
+# rust for paru...) are left out on purpose.
+
+dunst                         # notifications: Quickshell is the server
+waybar                        # the bar: Quickshell's panels
+rofi                          # app search: the launcher (SUPER)
+sddm                          # login screen: greetd with Quickshell
+thunar thunar-volman tumbler  # files: Nautilus
+imv                           # images: Loupe
+bluetui impala                # Bluetooth and Wi-Fi in a terminal: Settings
+gum dialog                    # what the v1 terminal menus were built with
+papirus-icon-theme            # the v1 terminal menus' icons
+gtk4-layer-shell              # the old Rust shell, gone
+yazi                          # the terminal file manager the old palettes came from
+fastfetch                     # the system card: Settings → About

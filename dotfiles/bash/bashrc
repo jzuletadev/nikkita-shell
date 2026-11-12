@@ -1,0 +1,44 @@
+# ~/nikkita-shell/dotfiles/bash/bashrc
+
+[[ $- == *i* ]] || return
+
+# ble.sh replaces bash's line editor: load it first, attach it last (its docs)
+[[ -f /usr/share/blesh/ble.sh ]] && source /usr/share/blesh/ble.sh --noattach
+
+HISTSIZE=50000
+HISTFILESIZE=50000
+HISTCONTROL=ignoreboth:erasedups   # no repeats, nothing typed with a leading space
+HISTTIMEFORMAT='%F %T  '           # `history` shows when each command ran
+shopt -s histappend
+PROMPT_COMMAND="history -a${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
+
+if [[ ${BLE_VERSION-} ]]; then
+    ble-face auto_complete='fg=242'   # suggestion text: muted grey, no background
+    # Up/Down prefix search with ble.sh's own widgets (it ignores readline's `bind`
+    # lines below). On an empty line they walk the history as usual.
+    function bashrc/history-prefix-keys {
+        ble-bind -m emacs -f up   'history-search-backward hide-status:point=end:immediate-accept:empty=emulate-readline'
+        ble-bind -m emacs -f down 'history-search-forward hide-status:point=end:immediate-accept:empty=emulate-readline'
+    }
+    blehook/eval-after-load keymap_emacs bashrc/history-prefix-keys
+else
+    bind '"\e[A": history-search-backward'
+    bind '"\e[B": history-search-forward'
+    bind '"\eOA": history-search-backward'   # same keys in "application" cursor mode
+    bind '"\eOB": history-search-forward'
+fi
+
+if command -v fzf >/dev/null; then
+    if [[ ${BLE_VERSION-} && -f /usr/share/blesh/contrib/integration/fzf-key-bindings.bash ]]; then
+        _ble_contrib_fzf_base=/usr/share/fzf   # where Arch's fzf keeps its bash scripts
+        ble-import -d integration/fzf-key-bindings
+    elif [[ ! ${BLE_VERSION-} ]]; then
+        eval "$(fzf --bash)"
+    fi
+fi
+
+# Default terminal editor
+export EDITOR="nvim"
+export VISUAL="nvim"
+
+[[ ${BLE_VERSION-} ]] && ble-attach
