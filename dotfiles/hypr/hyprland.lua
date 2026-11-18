@@ -1,15 +1,15 @@
--- ~/nikkita-shell/dotfiles/hypr/hyprland.lua
+-- ~/nikita-shell/dotfiles/hypr/hyprland.lua
 --
 -- Hyprland configuration (Lua, Hyprland 0.57+).
 --   * Paths are absolute: Hyprland starts through uwsm, without the shell's PATH.
 --   * Every shortcut is made with `bind`, with an id and a description: Settings →
 --     Shortcuts lists them and can change their keys.
 --   * Settings writes what you change there (input, shortcuts, gestures) to
---     ~/.local/state/nikkita-shell/hyprland-settings.lua, read below. This
+--     ~/.local/state/nikita-shell/hyprland-settings.lua, read below. This
 --     file holds the defaults.
 
 local home = os.getenv("HOME")
-local state = home .. "/.local/state/nikkita-shell"
+local state = home .. "/.local/state/nikita-shell"
 
 -- What Settings changed (services/HyprSettings.qml writes this file): input options,
 -- the keys of a shortcut, your own shortcuts, touchpad gestures. Missing, the
@@ -132,9 +132,9 @@ end)
 
 local mainMod = "SUPER"
 local terminal = "kitty"
-local scripts = home .. "/nikkita-shell/scripts"
+local scripts = home .. "/nikita-shell/scripts"
 -- The desktop's commands (dotfiles/quickshell); `qs ipc show` lists them.
-local qs = "qs ipc call nikkita"
+local qs = "qs ipc call nikita"
 
 -- ---- Environment ----
 -- For what Hyprland starts, and handed to systemd at start (see Autostart), so the
@@ -284,26 +284,26 @@ hl.animation({
 })
 
 -- ---- Layer rules ----
--- Every panel lives in one full-screen `nikkita` surface per monitor: `ignore_alpha`
+-- Every panel lives in one full-screen `nikita` surface per monitor: `ignore_alpha`
 -- blurs only where a panel is drawn, not the transparent rest.
 hl.layer_rule({
-    match = { namespace = "nikkita" },
+    match = { namespace = "nikita" },
     blur = true,
     ignore_alpha = 0.5,
 })
 -- The launcher animates itself (the field, a light veil), so no fade from here;
--- like `nikkita`, blur only behind what it draws (the veil stays under 0.5).
+-- like `nikita`, blur only behind what it draws (the veil stays under 0.5).
 hl.layer_rule({
-    match = { namespace = "nikkita-launcher" },
+    match = { namespace = "nikita-launcher" },
     no_anim = true,
     blur = true,
     ignore_alpha = 0.5,
 })
 
 -- The window switcher's keyboard (ALT+TAB): an invisible surface; the rail in
--- `nikkita` shows the switcher.
+-- `nikita` shows the switcher.
 hl.layer_rule({
-    match = { namespace = "nikkita-switcher" },
+    match = { namespace = "nikita-switcher" },
     no_anim = true,
 })
 
@@ -400,8 +400,8 @@ bind("show-desktop", mainMod .. " + D", hl.dsp.exec_cmd(scripts .. "/minimize.sh
 -- Global shortcuts the desktop listens to (services/ShellState.qml): Hyprland keeps
 -- these keys, so the switcher hears each TAB through them; letting go of the
 -- modifier reaches the switcher itself.
-bind("switcher", "ALT + Tab", hl.dsp.global("nikkita:switcher"), { description = "Switch windows (hold ALT, TAB for the next)" })
-bind("switcher-back", "ALT + SHIFT + Tab", hl.dsp.global("nikkita:switcherBack"), { description = "Switch windows, backwards" })
+bind("switcher", "ALT + Tab", hl.dsp.global("nikita:switcher"), { description = "Switch windows (hold ALT, TAB for the next)" })
+bind("switcher-back", "ALT + SHIFT + Tab", hl.dsp.global("nikita:switcherBack"), { description = "Switch windows, backwards" })
 bind("drag-move", mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true, fixed = true, description = "Drag to move the window" })
 bind("drag-resize", mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true, fixed = true, description = "Drag to resize the window" })
 bind("focus-left", mainMod .. " + left", hl.dsp.focus({ direction = "left" }), { description = "Focus window on the left" })
@@ -487,7 +487,7 @@ end
 -- the Settings window, to be read (SUPER + Q is a press, not "close this window").
 -- Its one shortcut is the way back by hand, should the desktop ever fail to switch
 -- back by itself (it also does when it starts).
-hl.define_submap("nikkita-capture", function()
+hl.define_submap("nikita-capture", function()
     hl.bind("SUPER + CTRL + ALT + SHIFT + Escape", hl.dsp.submap("reset"), { description = "Shortcuts back on" })
 end)
 
@@ -674,7 +674,7 @@ local function publish()
     for _, a in ipairs(gesture_actions) do
         offered[#offered + 1] = { id = a.id, title = a.title, group = a.group or "", swipe = a.swipe or "" }
     end
-    local f = io.open(runtime .. "/hypr/" .. instance .. "/nikkita.json", "w")
+    local f = io.open(runtime .. "/hypr/" .. instance .. "/nikita.json", "w")
     if f then
         f:write(json({ shortcuts = shortcuts, gestureDefaults = default_gestures, gestureActions = offered, problems = problems }))
         f:close()
@@ -700,12 +700,12 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("hypridle")
     hl.exec_cmd("udiskie -s &")
     -- The whole desktop, and the notification server: a user service
-    -- (system/shell/nikkita-shell.service), so systemd brings it back if it goes. It is
+    -- (system/shell/nikita-shell.service), so systemd brings it back if it goes. It is
     -- started here, once systemd has this session's display and the environment
     -- set above; without the service (an install from before it existed), `qs`
     -- runs directly.
     hl.exec_cmd("systemctl --user import-environment WAYLAND_DISPLAY HYPRLAND_INSTANCE_SIGNATURE "
-        .. table.concat(session_env, " ") .. "; systemctl --user start nikkita-shell.service || qs")
+        .. table.concat(session_env, " ") .. "; systemctl --user start nikita-shell.service || qs")
     -- WirePlumber sometimes starts too early and skips the internal sound card.
     hl.exec_cmd(scripts .. "/audio-check.sh")
 end)

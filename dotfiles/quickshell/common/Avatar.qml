@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/Avatar.qml
+// ~/nikita-shell/dotfiles/quickshell/common/Avatar.qml
 //
 // Your picture in a hexagon, or your initial when there is none: the lock and login
 // screens, and Settings. It follows the file when it changes; `reload()` for one that

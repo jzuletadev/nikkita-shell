@@ -1,4 +1,4 @@
-# ~/nikkita-shell/system/nvidia/env-hyprland
+# ~/nikita-shell/system/nvidia/env-hyprland
 
 # By DRIVER, which is stable. The integrated GPU goes first because it drives the panel
 # and should draw the desktop; the dedicated one stays behind for whoever asks for it.

@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/panels/ThemePanel.qml
+// ~/nikita-shell/dotfiles/quickshell/panels/ThemePanel.qml
 //
 // Dark or light, applied by scripts/theme-manager.sh.
 import QtQuick

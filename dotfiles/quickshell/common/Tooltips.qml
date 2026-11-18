@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/Tooltips.qml
+// ~/nikita-shell/dotfiles/quickshell/common/Tooltips.qml
 //
 // The desktop's one tooltip. Items ask through Tip.qml; the TooltipLayer of the
 // item's window draws it. It waits a second; right after one hides the next comes

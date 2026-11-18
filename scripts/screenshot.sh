@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# ~/nikkita-shell/scripts/screenshot.sh
+# ~/nikita-shell/scripts/screenshot.sh
 
 set -uo pipefail
 

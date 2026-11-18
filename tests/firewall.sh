@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# ~/nikkita-shell/tests/firewall.sh
+# ~/nikita-shell/tests/firewall.sh
 #
 # scripts/firewall.sh for real, without touching this computer's network: the
 # rules it writes are loaded into a network of their own (namespaces, no root
@@ -18,13 +18,13 @@ set -uo pipefail
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 SCRIPT="$REPO/scripts/firewall.sh"
 
-if [ -z "${NIKKITA_FW_INSIDE:-}" ]; then
+if [ -z "${NIKITA_FW_INSIDE:-}" ]; then
     for tool in nft ip unshare nsenter python3 ping; do
         command -v "$tool" >/dev/null || { echo "skipped: $tool isn't installed"; exit 0; }
     done
     WORK=$(mktemp -d)
     mkdir -p "$WORK/etc" "$WORK/units" "$WORK/ssh"
-    export WORK NIKKITA_FW_INSIDE=1 FIREWALL_ETC="$WORK/etc" FIREWALL_UNITS="$WORK/units" FIREWALL_SSHD="$WORK/ssh"
+    export WORK NIKITA_FW_INSIDE=1 FIREWALL_ETC="$WORK/etc" FIREWALL_UNITS="$WORK/units" FIREWALL_SSHD="$WORK/ssh"
     if [ "$(id -u)" = 0 ]; then
         unshare -n "$0"
     else
@@ -89,8 +89,8 @@ why_no_modules() {
 # ---- the rules as `firewall.sh install` writes them, with SSH allowed
 echo ssh > "$FIREWALL_ETC/firewall.allow"
 "$SCRIPT" install || { echo "FAIL firewall.sh install (simulated)"; exit 1; }
-check "the service file runs nft on the rules" yes grep -q "ExecStart=/usr/bin/nft -f $FIREWALL_ETC/firewall.nft" "$FIREWALL_UNITS/nikkita-firewall.service"
-check "stopping it deletes only its own table" yes grep -q "ExecStop=/usr/bin/nft destroy table inet nikkita_firewall" "$FIREWALL_UNITS/nikkita-firewall.service"
+check "the service file runs nft on the rules" yes grep -q "ExecStart=/usr/bin/nft -f $FIREWALL_ETC/firewall.nft" "$FIREWALL_UNITS/nikita-firewall.service"
+check "stopping it deletes only its own table" yes grep -q "ExecStop=/usr/bin/nft destroy table inet nikita_firewall" "$FIREWALL_UNITS/nikita-firewall.service"
 check "a name it doesn't know is refused" no "$SCRIPT" allow everything
 check "a port out of range is refused" no "$SCRIPT" allow 70000/tcp
 "$SCRIPT" allow 5000-5010/udp
@@ -120,13 +120,13 @@ if ! err=$(nft -f "$FIREWALL_ETC/firewall.nft" 2>&1); then
         exit 1
     fi
     CHECKS=$((CHECKS + 1))
-    nft destroy table inet nikkita_firewall
+    nft destroy table inet nikita_firewall
 fi
 if [ "$LOADS" = no ]; then
     echo "firewall: $CHECKS checks ok, the rest skipped: $(why_no_modules "nft_ct, nft_limit, nft_reject"). The rules' syntax is right, and what needs no module loads."
     exit $FAILED
 fi
-nft destroy table inet nikkita_firewall
+nft destroy table inet nikita_firewall
 
 # ---- a network of two: here (with the firewall) and there
 ip link set lo up
@@ -199,7 +199,7 @@ if [ "$opened" -lt 15 ] || [ "$opened" -gt 24 ]; then
 fi
 
 # ---- off: its table goes, nothing else
-nft destroy table inet nikkita_firewall
+nft destroy table inet nikita_firewall
 check "off: the port is reachable again" yes there python3 -I -c 'import socket; socket.create_connection(("10.99.0.1", 8080), timeout=1.5)'
 
 (( FAILED )) && exit 1

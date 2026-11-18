@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/Logo.qml
+// ~/nikita-shell/dotfiles/quickshell/common/Logo.qml
 //
 // The logo in the theme's color: Arch's, or assets/logo.svg (or .png) drawn as a
 // silhouette so any logo reads on both themes. Read at start: restart qs after

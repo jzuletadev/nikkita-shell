@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/VerticalSlider.qml
+// ~/nikita-shell/dotfiles/quickshell/common/VerticalSlider.qml
 //
 // The dock's volume and brightness bar. The wheel moves it in steps of 5; the right
 // button emits `secondary` (mute).

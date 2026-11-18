@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/Outline.js
+// ~/nikita-shell/dotfiles/quickshell/common/Outline.js
 //
 // The outline of a panel that grows out of a screen edge, as an SVG path in
 // screen coordinates. Instead of drawing one orientation and rotating it, each

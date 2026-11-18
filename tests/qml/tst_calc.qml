@@ -1,4 +1,4 @@
-// ~/nikkita-shell/tests/qml/tst_calc.qml
+// ~/nikita-shell/tests/qml/tst_calc.qml
 //
 // The launcher's calculator (dotfiles/quickshell/common/Calc.js). Run with tests/run.sh.
 import QtQuick

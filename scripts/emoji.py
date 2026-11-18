@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# ~/nikkita-shell/scripts/emoji.py
+# ~/nikita-shell/scripts/emoji.py
 #
 # The emoji the launcher offers (type ":" first): every single-character emoji
 # the installed emoji font can draw, with its Unicode name. JSON on stdout:

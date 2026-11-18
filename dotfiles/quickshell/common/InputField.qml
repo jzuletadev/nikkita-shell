@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/InputField.qml
+// ~/nikita-shell/dotfiles/quickshell/common/InputField.qml
 // A text field with an icon. `secret` adds an eye that shows what is typed.
 import QtQuick
 import qs.common

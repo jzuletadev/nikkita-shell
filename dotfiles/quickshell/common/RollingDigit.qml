@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/RollingDigit.qml
+// ~/nikita-shell/dotfiles/quickshell/common/RollingDigit.qml
 // One digit of BigClock, which rolls when it changes. It is as tall as the digits'
 // ink, not the font's line, so BigClock can align its parts to the pixel.
 import QtQuick

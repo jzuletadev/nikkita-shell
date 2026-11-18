@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/services/Commands.qml
+// ~/nikita-shell/dotfiles/quickshell/services/Commands.qml
 //
 // Every command the desktop runs for you goes through here, so a failure always
 // says so: a notification with what failed and the program's last words.

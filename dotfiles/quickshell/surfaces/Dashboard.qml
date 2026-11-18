@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/surfaces/Dashboard.qml
+// ~/nikita-shell/dotfiles/quickshell/surfaces/Dashboard.qml
 
 import QtQuick
 import Quickshell

@@ -1,7 +1,7 @@
 //@ pragma UseQApplication
 //@ pragma IconTheme Adwaita
 
-// ~/nikkita-shell/dotfiles/quickshell/shell.qml
+// ~/nikita-shell/dotfiles/quickshell/shell.qml
 
 import QtQuick
 import Quickshell

@@ -1,18 +1,18 @@
--- ~/nikkita-shell/system/greetd/hyprland.lua
+-- ~/nikita-shell/system/greetd/hyprland.lua
 --
 -- The login screen's compositor. greetd starts it as the `greeter` user
 -- (config.toml); it shows dotfiles/quickshell/greeter.qml and exits once that has
 -- handed your session to greetd. install-greeter.sh copies it, with the QML, to
--- /usr/share/nikkita-shell.
+-- /usr/share/nikita-shell.
 
-local root = "/usr/share/nikkita-shell"
+local root = "/usr/share/nikita-shell"
 
 hl.monitor({ output = "", mode = "preferred", position = "auto", scale = "1" })
 -- The layout you kept in Settings → Display, so the pointer crosses between monitors
 -- where it does once you are in. Plain data that greeter-sync.sh copies; every field
 -- is checked, and nothing in it runs.
 do
-    local f = io.open("/var/lib/nikkita-shell/monitors")
+    local f = io.open("/var/lib/nikita-shell/monitors")
     if f then
         for line in f:lines() do
             local out, mode, pos, scale, transform = line:match("^([%w%-_.]+) (%d+x%d+@[%d.]+) (%-?%d+x%-?%d+) ([%d.]+) ([0-7])$")
@@ -57,12 +57,12 @@ hl.config({
 
 -- greeter.qml animates itself.
 hl.layer_rule({
-    match = { namespace = "nikkita-greeter" },
+    match = { namespace = "nikita-greeter" },
     no_anim = true,
 })
 
 -- Quickshell quits once greetd has the session; then this Hyprland exits and greetd
 -- starts the session. If Quickshell crashes, it comes back.
 hl.on("hyprland.start", function()
-    hl.exec_cmd("until NIKKITA_GREETER=1 qs -p " .. root .. "/dotfiles/quickshell/greeter.qml; do sleep 1; done; hyprctl dispatch 'hl.dsp.exit()'")
+    hl.exec_cmd("until NIKITA_GREETER=1 qs -p " .. root .. "/dotfiles/quickshell/greeter.qml; do sleep 1; done; hyprctl dispatch 'hl.dsp.exit()'")
 end)

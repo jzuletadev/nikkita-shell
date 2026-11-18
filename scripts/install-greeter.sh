@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# ~/nikkita-shell/scripts/install-greeter.sh
+# ~/nikita-shell/scripts/install-greeter.sh
 #
 # The login screen: dotfiles/quickshell/greeter.qml under greetd. Run it with sudo;
 # install.sh does. Run it again after changing the lock or login screen.
 #
 # greetd runs it as the `greeter` user, who can't read your home. So the QML, the
-# fonts and system/greetd are copied to /usr/share/nikkita-shell, and your
-# theme, settings, picture and wallpaper go to /var/lib/nikkita-shell, which
+# fonts and system/greetd are copied to /usr/share/nikita-shell, and your
+# theme, settings, picture and wallpaper go to /var/lib/nikita-shell, which
 # you own and greeter-sync.sh and wallpaper.sh keep current.
 #
 # If the login screen ever fails: Ctrl+Alt+F2, log in, `uwsm start hyprland.desktop`.
@@ -14,8 +14,8 @@
 set -euo pipefail
 
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
-DEST=/usr/share/nikkita-shell
-SHARED=/var/lib/nikkita-shell
+DEST=/usr/share/nikita-shell
+SHARED=/var/lib/nikita-shell
 
 [ "$(id -u)" -eq 0 ] || { echo "Run it with sudo." >&2; exit 1; }
 OWNER="${SUDO_USER:-}"
@@ -42,7 +42,7 @@ install -d -m 755 -o "$OWNER" -g "$(id -gn "$OWNER")" "$SHARED"
 runuser -u "$OWNER" -- env HOME="$OWNER_HOME" USER="$OWNER" "$REPO/scripts/greeter-sync.sh"
 # wallpaper.sh refreshes it on every change; this is the first one.
 if [ ! -f "$SHARED/wallpaper" ]; then
-    wall=$(readlink -e "$OWNER_HOME/.local/state/nikkita-shell/wallpaper" ||
+    wall=$(readlink -e "$OWNER_HOME/.local/state/nikita-shell/wallpaper" ||
            find "$REPO/assets/wallpapers" -maxdepth 1 -type f | sort | head -1)
     if [ -n "$wall" ]; then
         install -m 644 -o "$OWNER" -g "$(id -gn "$OWNER")" "$wall" "$SHARED/wallpaper"
@@ -57,10 +57,10 @@ fi
 
 echo "3. greetd -> /etc/greetd/config.toml"
 # The first copy is the original: a later run (or the rename's) never replaces it.
-if [ -f /etc/greetd/config.toml ] && ! grep -q nikkita-shell /etc/greetd/config.toml &&
-    [ ! -f /etc/greetd/config.toml.bak-nikkita ]; then
-    cp /etc/greetd/config.toml /etc/greetd/config.toml.bak-nikkita
-    echo "   the previous one stays as config.toml.bak-nikkita"
+if [ -f /etc/greetd/config.toml ] && ! grep -q nikita-shell /etc/greetd/config.toml &&
+    [ ! -f /etc/greetd/config.toml.bak-nikita ]; then
+    cp /etc/greetd/config.toml /etc/greetd/config.toml.bak-nikita
+    echo "   the previous one stays as config.toml.bak-nikita"
 fi
 install -Dm644 "$REPO/system/greetd/config.toml" /etc/greetd/config.toml
 
@@ -80,7 +80,7 @@ add_pam() {   # add_pam <file> <after this type> <line>
     local file=$1 type=$2 line=$3
     [ -f "$file" ] || return 0
     grep -qF "$line" "$file" && return 0
-    [ -f "$file.bak-nikkita" ] || cp "$file" "$file.bak-nikkita"
+    [ -f "$file.bak-nikita" ] || cp "$file" "$file.bak-nikita"
     # After the last line of that type, so it runs once the stack before it has.
     awk -v type="$type" -v line="$line" '
         { lines[NR] = $0; if ($1 == type) last = NR }
@@ -91,7 +91,7 @@ if [ -f /usr/lib/security/pam_gnome_keyring.so ]; then
     add_pam /etc/pam.d/greetd auth "auth       optional     pam_gnome_keyring.so"
     add_pam /etc/pam.d/greetd session "session    optional     pam_gnome_keyring.so auto_start"
     add_pam /etc/pam.d/passwd password "password   optional     pam_gnome_keyring.so"
-    echo "   the previous files stay as greetd.bak-nikkita and passwd.bak-nikkita in /etc/pam.d"
+    echo "   the previous files stay as greetd.bak-nikita and passwd.bak-nikita in /etc/pam.d"
 else
     echo "   gnome-keyring isn't installed (sudo pacman -S gnome-keyring): skipped"
 fi

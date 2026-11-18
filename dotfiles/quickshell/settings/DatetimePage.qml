@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/settings/DatetimePage.qml
+// ~/nikita-shell/dotfiles/quickshell/settings/DatetimePage.qml
 //
 // Date, time and time zone through timedatectl. Every change asks for the admin
 // password (surfaces/AuthDialog.qml, the polkit agent).

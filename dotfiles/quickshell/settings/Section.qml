@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/settings/Section.qml
+// ~/nikita-shell/dotfiles/quickshell/settings/Section.qml
 // A group of settings: a header, a card with its rows, and an optional note.
 import QtQuick
 import qs.common

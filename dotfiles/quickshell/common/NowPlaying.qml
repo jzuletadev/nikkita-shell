@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/NowPlaying.qml
+// ~/nikita-shell/dotfiles/quickshell/common/NowPlaying.qml
 //
 // What's playing (services/Media), as a card over the blurred cover.
 // `compact` (the lock screen): one row. `live`: on screen; only then does the

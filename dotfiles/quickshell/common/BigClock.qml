@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/BigClock.qml
+// ~/nikita-shell/dotfiles/quickshell/common/BigClock.qml
 //
 // The big clock (dashboard, lock screen): big hours; beside them the minutes at
 // half size over a tag, AM/PM (12 h) or the seconds (24 h). For the seconds to move,

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# ~/nikkita-shell/tests/gpu-drivers.sh
+# ~/nikita-shell/tests/gpu-drivers.sh
 #
 # scripts/gpu-drivers.sh against simulated machines (GPU_SYSFS points it at a fake
 # /sys): what it finds, what each one gets, and what it warns about. Run with

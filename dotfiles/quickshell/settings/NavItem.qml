@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/settings/NavItem.qml
+// ~/nikita-shell/dotfiles/quickshell/settings/NavItem.qml
 // A page in the Settings sidebar. `cursor` is the keyboard's pick while filtering.
 import QtQuick
 import qs.common

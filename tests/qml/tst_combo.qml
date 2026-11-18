@@ -1,4 +1,4 @@
-// ~/nikkita-shell/tests/qml/tst_combo.qml
+// ~/nikita-shell/tests/qml/tst_combo.qml
 //
 // Shortcut capture and comparison (dotfiles/quickshell/common/Combo.js). Run with tests/run.sh.
 import QtQuick

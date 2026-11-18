@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/surfaces/Performance.qml
+// ~/nikita-shell/dotfiles/quickshell/surfaces/Performance.qml
 
 import QtQuick
 import qs.common

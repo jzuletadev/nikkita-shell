@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# ~/nikkita-shell/install.sh
+# ~/nikita-shell/install.sh
 #
-# Installs this desktop on Arch Linux. Run it as your user from ~/nikkita-shell
+# Installs this desktop on Arch Linux. Run it as your user from ~/nikita-shell
 # (it asks for sudo when it needs it). It shows what it will do and asks before starting.
 #
 #   ./install.sh                  the desktop; configs are copied into ~/.config
@@ -31,7 +31,7 @@
 
 set -euo pipefail
 
-REPO="$HOME/nikkita-shell"
+REPO="$HOME/nikita-shell"
 MODE=copy
 APPS=0 AUR=0 GPU=0 DRY=0 YES=0
 for arg in "$@"; do
@@ -83,7 +83,7 @@ mapfile -t GPUFOUND < <(gpu detect)
 mapfile -t LEFTOVERS < <(packages removed.txt | while read -r p; do pacman -Qqe "$p" 2>/dev/null || true; done)
 
 # ---- the plan ----
-printf '\n%sNikkita Shell — installer%s%s\n' "$bold" "$off" "$( (( DRY )) && echo "  (dry run: nothing will change)" )"
+printf '\n%sNikita Shell — installer%s%s\n' "$bold" "$off" "$( (( DRY )) && echo "  (dry run: nothing will change)" )"
 echo
 echo "  ${green}✓${off} the desktop: ${#PKGS[@]} packages with pacman (system updated first), configs"
 echo "    ${dim}$( [ $MODE = link ] && echo "linked to this repo" || echo "copied into ~/.config" ), services, theme, login screen, folders (Music, wallpapers...)${off}"
@@ -106,8 +106,8 @@ fi
 # =============================================================================
 if (( APPS )) && ! has_multilib; then
     step "Enabling [multilib] in /etc/pacman.conf (Steam needs it)"
-    note "a copy stays as /etc/pacman.conf.bak-nikkita"
-    run sudo cp /etc/pacman.conf /etc/pacman.conf.bak-nikkita
+    note "a copy stays as /etc/pacman.conf.bak-nikita"
+    run sudo cp /etc/pacman.conf /etc/pacman.conf.bak-nikita
     run sudo sed -i '/^#\[multilib\]$/{s/^#//;n;s/^#//}' /etc/pacman.conf
     if ! (( DRY )) && ! has_multilib; then
         warn "Couldn't find '#[multilib]' to uncomment: enable it by hand and run again. Steam and 32-bit drivers are skipped."
@@ -153,7 +153,7 @@ if grep -qF '.config/bash/bashrc' "$HOME/.bashrc" 2>/dev/null; then
     note "already sourced from ~/.bashrc"
 else
     echo "+ append to ~/.bashrc: . ~/.config/bash/bashrc"
-    (( DRY )) || printf '\n# nikkita-shell: history, suggestions, fzf\n[ -f ~/.config/bash/bashrc ] && . ~/.config/bash/bashrc\n' >> "$HOME/.bashrc"
+    (( DRY )) || printf '\n# nikita-shell: history, suggestions, fzf\n[ -f ~/.config/bash/bashrc ] && . ~/.config/bash/bashrc\n' >> "$HOME/.bashrc"
 fi
 
 step "Desktop (Quickshell)"
@@ -161,7 +161,7 @@ step "Desktop (Quickshell)"
 run systemctl --user mask dunst.service
 run "$REPO/scripts/theme-manager.sh"
 # A user service, so systemd brings the shell back if it dies; hyprland.lua starts it.
-run install -Dm644 "$REPO/system/shell/nikkita-shell.service" "$HOME/.config/systemd/user/nikkita-shell.service"
+run install -Dm644 "$REPO/system/shell/nikita-shell.service" "$HOME/.config/systemd/user/nikita-shell.service"
 run systemctl --user daemon-reload
 
 step "Safety: firewall and snapshots"

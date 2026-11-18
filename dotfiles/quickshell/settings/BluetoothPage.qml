@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/settings/BluetoothPage.qml
+// ~/nikita-shell/dotfiles/quickshell/settings/BluetoothPage.qml
 // Bluetooth devices (panels/BluetoothPanel) and how this computer shows itself to
 // others.
 import QtQuick

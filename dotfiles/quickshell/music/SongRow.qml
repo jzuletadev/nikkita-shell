@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/music/SongRow.qml
+// ~/nikita-shell/dotfiles/quickshell/music/SongRow.qml
 // One song in the Music window. A click plays it and the rest of its list.
 import QtQuick
 import QtQuick.Effects

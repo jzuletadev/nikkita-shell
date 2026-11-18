@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# ~/nikkita-shell/scripts/music-library.py
+# ~/nikita-shell/scripts/music-library.py
 #
 # The local music library, for the Music window (dotfiles/quickshell/services/Music.qml).
 #
@@ -13,7 +13,7 @@
 #
 # Tags and length come from ffprobe. The cover is the file's embedded picture or,
 # for a video, one of its frames, made once with ffmpeg into
-# ~/.cache/nikkita-shell/music/covers. What was read stays in a cache by
+# ~/.cache/nikita-shell/music/covers. What was read stays in a cache by
 # path, size and mtime, so a scan only reads new or changed files.
 #
 # Playlists are extended M3U (.m3u8) with absolute paths: any player opens them.
@@ -25,7 +25,7 @@ import sys
 from concurrent.futures import ThreadPoolExecutor
 
 EXTS = {".mp3", ".m4a", ".mp4", ".flac", ".ogg", ".oga", ".opus", ".wav", ".aac", ".webm", ".mkv", ".wma"}
-CACHE_DIR = os.path.join(os.environ.get("XDG_CACHE_HOME", os.path.expanduser("~/.cache")), "nikkita-shell", "music")
+CACHE_DIR = os.path.join(os.environ.get("XDG_CACHE_HOME", os.path.expanduser("~/.cache")), "nikita-shell", "music")
 COVERS = os.path.join(CACHE_DIR, "covers")
 
 

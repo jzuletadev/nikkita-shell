@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/TooltipLayer.qml
+// ~/nikita-shell/dotfiles/quickshell/common/TooltipLayer.qml
 //
 // Draws the tooltip (Tooltips) when its item is in this window. Put it last in the
 // window; it takes no input.

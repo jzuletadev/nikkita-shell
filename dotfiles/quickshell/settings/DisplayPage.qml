@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/settings/DisplayPage.qml
+// ~/nikita-shell/dotfiles/quickshell/settings/DisplayPage.qml
 // Screen brightness, night light, and the monitors: where each one sits, its mode,
 // scale and rotation (services/Monitors.qml applies them and asks before keeping).
 import QtQuick
@@ -248,7 +248,7 @@ Column {
     Section {
         title: "Monitors"
         note: Monitors.saved
-            ? "Your layout is saved in ~/.local/state/nikkita-shell/monitors.lua; \"Automatic\" forgets it."
+            ? "Your layout is saved in ~/.local/state/nikita-shell/monitors.lua; \"Automatic\" forgets it."
             : "Drag a monitor to place it. Changes apply at once and go back by themselves unless you keep them."
 
         // The layout, to scale; the selected monitor below.

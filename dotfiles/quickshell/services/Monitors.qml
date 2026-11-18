@@ -1,8 +1,8 @@
-// ~/nikkita-shell/dotfiles/quickshell/services/Monitors.qml
+// ~/nikita-shell/dotfiles/quickshell/services/Monitors.qml
 //
 // Settings → Display's monitor editor: a draft of every monitor (on or off) that
 // `apply()` hands to Hyprland live (`hyprctl eval 'hl.monitor(...)'`). Then it
-// asks: kept, it is written to ~/.local/state/nikkita-shell/monitors.lua,
+// asks: kept, it is written to ~/.local/state/nikita-shell/monitors.lua,
 // which hyprland.lua reads at every start and reload; not kept within 15 s (a
 // screen gone black can't answer), it goes back. Every monitor gets a fixed
 // position: one left on "auto" moves whenever another one changes (measured).

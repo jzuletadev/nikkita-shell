@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/Spinner.qml
+// ~/nikita-shell/dotfiles/quickshell/common/Spinner.qml
 // An arc that turns while visible (connecting...).
 import QtQuick
 import QtQuick.Shapes

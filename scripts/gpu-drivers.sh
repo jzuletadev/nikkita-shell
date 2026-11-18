@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# ~/nikkita-shell/scripts/gpu-drivers.sh
+# ~/nikita-shell/scripts/gpu-drivers.sh
 #
 # Graphics drivers: what this machine has, and what each GPU needs. install.sh uses it
 # (Mesa's part always, the rest with --gpu-drivers); it can also run alone.
@@ -30,7 +30,7 @@
 
 set -euo pipefail
 
-REPO="$HOME/nikkita-shell"
+REPO="$HOME/nikita-shell"
 SRC="$REPO/system/nvidia"
 SYS="${GPU_SYSFS:-/sys}"
 

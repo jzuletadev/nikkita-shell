@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/services/Privacy.qml
+// ~/nikita-shell/dotfiles/quickshell/services/Privacy.qml
 //
 // Who is using the microphone, the camera or your screen right now, from PipeWire:
 // the amber mark at the bottom (PrivacyMark) and the tray say so.

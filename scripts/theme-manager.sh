@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# ~/nikkita-shell/scripts/theme-manager.sh
+# ~/nikita-shell/scripts/theme-manager.sh
 #
-# Dark or light theme, saved in ~/.local/state/nikkita-shell/theme.
+# Dark or light theme, saved in ~/.local/state/nikita-shell/theme.
 #
 #   theme-manager.sh dark | light   set that theme
 #   theme-manager.sh toggle         switch to the other one
@@ -13,7 +13,7 @@
 
 set -u
 
-STATE="$HOME/.local/state/nikkita-shell/theme"
+STATE="$HOME/.local/state/nikita-shell/theme"
 GTK3="$HOME/.config/gtk-3.0/settings.ini"
 
 current=$(cat "$STATE" 2>/dev/null)

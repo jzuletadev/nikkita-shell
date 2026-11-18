@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/settings/NotificationsPage.qml
+// ~/nikita-shell/dotfiles/quickshell/settings/NotificationsPage.qml
 // Do not disturb, and the whole saved history with room to read it.
 import QtQuick
 import qs.common

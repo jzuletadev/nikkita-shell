@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/surfaces/Launcher.qml
+// ~/nikita-shell/dotfiles/quickshell/surfaces/Launcher.qml
 
 import QtQuick
 import Quickshell
@@ -28,7 +28,7 @@ PanelWindow {
     exclusionMode: ExclusionMode.Ignore
     color: "transparent"
     WlrLayershell.layer: WlrLayer.Overlay
-    WlrLayershell.namespace: "nikkita-launcher"
+    WlrLayershell.namespace: "nikita-launcher"
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
 
     // From Sizes.qml.

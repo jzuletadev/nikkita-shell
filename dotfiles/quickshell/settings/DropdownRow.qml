@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/settings/DropdownRow.qml
+// ~/nikita-shell/dotfiles/quickshell/settings/DropdownRow.qml
 // A setting picked from a list: the row shows the current choice, and a click
 // unfolds the choices under it (the way Default apps does). `options`:
 // [{ label, value, detail?, group? }]; with a single option there is nothing to

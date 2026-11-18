@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/services/KeyboardLight.qml
+// ~/nikita-shell/dotfiles/quickshell/services/KeyboardLight.qml
 //
 // The keyboard's backlight, on laptops that have one the kernel knows about: any
 // LED named "…kbd_backlight" (dell::, tpacpi::, asus::, smc::, system76::…), set

@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/services/Updates.qml
+// ~/nikita-shell/dotfiles/quickshell/services/Updates.qml
 //
 // Package updates (scripts/updates.sh): shown in the Power corner, Settings → About
 // and the launcher. Asked when one of those opens and the last answer is older
@@ -39,7 +39,7 @@ Singleton {
             check(false);
     }
     // In a terminal: pacman asks for the password there. The script checks again at
-    // the end (`qs ipc call nikkita updates`).
+    // the end (`qs ipc call nikita updates`).
     function install() {
         Commands.launch(["kitty", "--title", "System update", "-e", Paths.script("updates.sh"), "install"], "Updating the system");
     }

@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/settings/HyprProblems.qml
+// ~/nikita-shell/dotfiles/quickshell/settings/HyprProblems.qml
 // What went wrong applying the settings Hyprland owns (keyboard, shortcuts, mouse,
 // touchpad): shown at the top of those pages, only when there is something to say.
 import QtQuick

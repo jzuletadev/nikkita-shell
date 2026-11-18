@@ -1,6 +1,6 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/Paths.qml
+// ~/nikita-shell/dotfiles/quickshell/common/Paths.qml
 //
-// Where the desktop's files are. The login screen (NIKKITA_GREETER=1) runs as the
+// Where the desktop's files are. The login screen (NIKITA_GREETER=1) runs as the
 // `greeter` user, who can't read your home: it reads the copies that
 // install-greeter.sh and greeter-sync.sh keep outside it.
 pragma Singleton
@@ -10,10 +10,10 @@ import Quickshell
 import qs.services
 
 Singleton {
-    readonly property bool greeter: Quickshell.env("NIKKITA_GREETER") === "1"
+    readonly property bool greeter: Quickshell.env("NIKITA_GREETER") === "1"
     readonly property string home: Quickshell.env("HOME")
-    readonly property string repo: greeter ? "/usr/share/nikkita-shell" : home + "/nikkita-shell"
-    readonly property string state: greeter ? "/var/lib/nikkita-shell" : home + "/.local/state/nikkita-shell"
+    readonly property string repo: greeter ? "/usr/share/nikita-shell" : home + "/nikita-shell"
+    readonly property string state: greeter ? "/var/lib/nikita-shell" : home + "/.local/state/nikita-shell"
     // Yours is a link wallpaper.sh keeps; the login screen's, a copy it keeps.
     readonly property string wallpaper: state + "/wallpaper"
     readonly property string config: Quickshell.env("XDG_CONFIG_HOME") || home + "/.config"

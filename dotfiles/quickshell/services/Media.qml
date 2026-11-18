@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/services/Media.qml
+// ~/nikita-shell/dotfiles/quickshell/services/Media.qml
 //
 // What's playing: the local player (services/Music) and the MPRIS ones. Shown: the
 // one playing, else the first, unless `cycle` picked another. playerctld is left

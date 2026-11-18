@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# ~/nikkita-shell/tests/keys.py
+# ~/nikita-shell/tests/keys.py
 #
 # Real key presses on a running desktop, for trying a change by hand: a virtual
 # keyboard (zwp_virtual_keyboard_v1) spoken in the raw Wayland protocol, so it
@@ -13,7 +13,7 @@
 #   tests/keys.py --type "kitty -e"      type text (what the layout has unshifted,
 #                                        plus capitals and its shifted symbols)
 #   tests/keys.py --hold 800 ALT+Tab     keep the last key's modifiers down 800 ms
-#   NIKKITA_KEYS_LAYOUT=es                   the layout to load (default: us)
+#   NIKITA_KEYS_LAYOUT=es                   the layout to load (default: us)
 #
 # Modifiers: SUPER, CTRL, ALT, SHIFT. Keys by their XKB name (q, 1, space, Tab,
 # Left, XF86AudioMute), as scripts/keymap.py prints them.
@@ -170,7 +170,7 @@ def main():
     args = sys.argv[1:]
     if not args:
         sys.exit(__doc__ or "usage: keys.py [--hold MS] [--type TEXT] COMBO...")
-    kb = Keyboard(os.environ.get("NIKKITA_KEYS_LAYOUT", "us"))
+    kb = Keyboard(os.environ.get("NIKITA_KEYS_LAYOUT", "us"))
     hold = 0.0
     while args:
         a = args.pop(0)

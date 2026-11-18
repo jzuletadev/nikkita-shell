@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/music/MusicWindow.qml
+// ~/nikita-shell/dotfiles/quickshell/music/MusicWindow.qml
 //
 // The local music player's window (services/Music). It rescans ~/Music each time
 // it opens (cached: only new files cost).

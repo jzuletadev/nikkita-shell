@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/services/PowerModes.qml
+// ~/nikita-shell/dotfiles/quickshell/services/PowerModes.qml
 //
 // The power modes (power-profiles-daemon), named and drawn the same in the Power
 // corner and Settings → Power. Performance only where the machine has it.

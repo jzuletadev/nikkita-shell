@@ -1,4 +1,4 @@
-# Nikkita Shell
+# Nikita Shell
 
 A complete Hyprland desktop for Arch Linux, kept in one repository: panels, app search,
 notifications, lock screen and a Settings window, all drawn by [Quickshell](https://quickshell.org).
@@ -18,8 +18,8 @@ Clone the repo **to this exact path** (the configs refer to it) and run the inst
 user, not as root:
 
 ```bash
-git clone https://github.com/jzuletadev/nikkita-shell.git ~/nikkita-shell
-cd ~/nikkita-shell
+git clone https://github.com/jzuletadev/nikita-shell.git ~/nikita-shell
+cd ~/nikita-shell
 ./install.sh
 ```
 
@@ -51,7 +51,7 @@ Running the installer again is safe: it adds what is missing, and offers (defaul
 remove what earlier versions installed and this one replaced (`packages/removed.txt`).
 
 ```bash
-cd ~/nikkita-shell && git pull
+cd ~/nikita-shell && git pull
 ./install.sh            # with the same options as the first time
 ./install.sh --aur      # adds one part to an installed desktop
 ```
@@ -95,10 +95,10 @@ crash, systemd brings them back.
 ## If something goes wrong
 
 - **The panels are gone.** `qs log` shows why. Start them again with
-  `systemctl --user restart nikkita-shell` (or, on an install from before the service, `qs kill; hyprctl dispatch 'hl.dsp.exec_cmd("qs")'`).
+  `systemctl --user restart nikita-shell` (or, on an install from before the service, `qs kill; hyprctl dispatch 'hl.dsp.exec_cmd("qs")'`).
 - **The login screen doesn't show up.** Press `Ctrl+Alt+F2`, log in and run
   `uwsm start hyprland.desktop`: your desktop starts there. Then
-  `sudo ~/nikkita-shell/scripts/install-greeter.sh` installs the login screen again.
+  `sudo ~/nikita-shell/scripts/install-greeter.sh` installs the login screen again.
 - **Stuck on the lock screen.** Press `Ctrl+Alt+F3` and log in. Run
   `pkill -x qs; hyprctl --instance 0 dispatch 'hl.dsp.exec_cmd("hyprlock")'`, go back with
   `Ctrl+Alt+F1` and unlock in hyprlock.

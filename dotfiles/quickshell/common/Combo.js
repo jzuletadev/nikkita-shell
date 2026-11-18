@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/Combo.js
+// ~/nikita-shell/dotfiles/quickshell/common/Combo.js
 //
 // Shortcuts as Hyprland writes them ("SUPER + SHIFT + Q"), for Settings → Shortcuts:
 // turning a key press into one, comparing two, and showing one to people. Not

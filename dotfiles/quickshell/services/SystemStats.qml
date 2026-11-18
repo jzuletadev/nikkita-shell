@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/services/SystemStats.qml
+// ~/nikita-shell/dotfiles/quickshell/services/SystemStats.qml
 //
 // CPU, memory, disk, network, GPU and fans, from scripts/system-stats.py.
 //

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# ~/nikkita-shell/scripts/timezones.py
+# ~/nikita-shell/scripts/timezones.py
 #
 # Every time zone with its UTC offset now, for Settings → Date & time (QML can't
 # compute them): [{"zone": "America/Lima", "offset": "-05:00", "minutes": -300}, ...]

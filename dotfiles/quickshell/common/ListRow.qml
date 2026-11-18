@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/ListRow.qml
+// ~/nikita-shell/dotfiles/quickshell/common/ListRow.qml
 // A list row: icon, title, subtitle and whatever goes on the right.
 import QtQuick
 import qs.common

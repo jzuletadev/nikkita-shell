@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/lock/LockContext.qml
+// ~/nikita-shell/dotfiles/quickshell/lock/LockContext.qml
 //
 // What every monitor of the lock screen shares: the password and the PAM check.
 // PAM uses the `login` stack, so faillock applies and its message is shown as is.

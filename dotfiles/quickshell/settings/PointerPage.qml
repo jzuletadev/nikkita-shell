@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/settings/PointerPage.qml
+// ~/nikita-shell/dotfiles/quickshell/settings/PointerPage.qml
 // Mouse and touchpad: speed, scrolling, clicking, and what each touchpad gesture
 // does. The touchpad parts show only where there is one. Hyprland owns all of it:
 // services/HyprSettings.qml applies each change and reads the values back.

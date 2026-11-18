@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/surfaces/Toasts.qml
+// ~/nikita-shell/dotfiles/quickshell/surfaces/Toasts.qml
 
 import QtQuick
 import Quickshell

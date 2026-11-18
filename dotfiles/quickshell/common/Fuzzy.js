@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/Fuzzy.js
+// ~/nikita-shell/dotfiles/quickshell/common/Fuzzy.js
 //
 // The launcher's scoring. Two ways to match, keeping the best: as initials ("vsc" ->
 // Visual Studio Code) or greedy (rewarding consecutive letters and word starts).

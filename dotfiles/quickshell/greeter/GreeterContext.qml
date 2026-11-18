@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/greeter/GreeterContext.qml
+// ~/nikita-shell/dotfiles/quickshell/greeter/GreeterContext.qml
 //
 // The login screen's LockContext: the same properties, but the password goes to
 // greetd, which then starts the session (Hyprland through uwsm).
@@ -11,8 +11,8 @@ import qs.common
 Scope {
     id: ctx
 
-    // NIKKITA_GREETER_PREVIEW=1: in a window, and the power buttons do nothing (LockView).
-    readonly property bool preview: Quickshell.env("NIKKITA_GREETER_PREVIEW") === "1"
+    // NIKITA_GREETER_PREVIEW=1: in a window, and the power buttons do nothing (LockView).
+    readonly property bool preview: Quickshell.env("NIKITA_GREETER_PREVIEW") === "1"
 
     property string buffer: ""
     // "" while typing, "checking", "fail" or "error".

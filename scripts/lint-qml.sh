@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# ~/nikkita-shell/scripts/lint-qml.sh
+# ~/nikita-shell/scripts/lint-qml.sh
 #
 # qmllint over the desktop's QML, keeping what points at a real mistake: a property
 # or function that doesn't exist (a renamed token, a removed function). Exits 1 if it

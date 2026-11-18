@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/services/Battery.qml
+// ~/nikita-shell/dotfiles/quickshell/services/Battery.qml
 //
 // The laptop battery, from UPower: the Power corner, Settings → Power, Performance
 // and the lock and login screens. `present` is false on a desktop PC.

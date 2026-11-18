@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# ~/nikkita-shell/scripts/bt-pair.py
+# ~/nikita-shell/scripts/bt-pair.py
 #
 # Pairs, trusts and connects one Bluetooth device, for Settings → Bluetooth.
 #

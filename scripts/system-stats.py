@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# ~/nikkita-shell/scripts/system-stats.py
+# ~/nikita-shell/scripts/system-stats.py
 #
 # The desktop's system stats, for Quickshell.
 #

@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/Ring.qml
+// ~/nikita-shell/dotfiles/quickshell/common/Ring.qml
 // A progress ring (0-100) with the value in the middle.
 import QtQuick
 import QtQuick.Shapes

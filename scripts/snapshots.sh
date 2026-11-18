@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# ~/nikkita-shell/scripts/snapshots.sh
+# ~/nikita-shell/scripts/snapshots.sh
 #
 # A way back from a bad update: on a btrfs root, snapper keeps a snapshot of the
 # system before and after every pacman transaction (snap-pac), the last 10 pairs.

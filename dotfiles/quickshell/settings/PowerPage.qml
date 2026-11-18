@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/settings/PowerPage.qml
+// ~/nikita-shell/dotfiles/quickshell/settings/PowerPage.qml
 // Battery and its charge limit (where the laptop has one), power mode, keep awake,
 // and the idle steps (read from hypridle.conf).
 import QtQuick

@@ -1,4 +1,4 @@
-// ~/nikkita-shell/tests/qml/tst_fuzzy.qml
+// ~/nikita-shell/tests/qml/tst_fuzzy.qml
 //
 // The launcher's ranking (dotfiles/quickshell/common/Fuzzy.js). Run with tests/run.sh.
 import QtQuick

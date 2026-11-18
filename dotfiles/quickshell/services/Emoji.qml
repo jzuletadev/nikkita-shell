@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/services/Emoji.qml
+// ~/nikita-shell/dotfiles/quickshell/services/Emoji.qml
 //
 // The emoji the launcher searches after ":" (scripts/emoji.py), read the first time
 // they are asked for and kept.

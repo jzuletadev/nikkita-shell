@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/Sizes.qml
+// ~/nikita-shell/dotfiles/quickshell/common/Sizes.qml
 //
 // Every size of the desktop, derived from the monitor.
 import QtQuick

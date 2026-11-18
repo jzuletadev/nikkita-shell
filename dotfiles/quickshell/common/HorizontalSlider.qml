@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/HorizontalSlider.qml
+// ~/nikita-shell/dotfiles/quickshell/common/HorizontalSlider.qml
 // A horizontal 0-100 bar you drag or click. No mouse wheel: these sit in pages that
 // scroll, and a wheel passing over one would change it by accident.
 import QtQuick

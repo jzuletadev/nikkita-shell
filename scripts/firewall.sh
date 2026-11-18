@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# ~/nikkita-shell/scripts/firewall.sh
+# ~/nikita-shell/scripts/firewall.sh
 #
 # A firewall for a computer that moves between networks: other computers can't
 # start connections to this one, except for what you allow. What this computer
@@ -16,8 +16,8 @@
 #   firewall.sh uninstall       root: remove all of it
 #
 # How it is made:
-#   * nftables, in a table of its own (inet nikkita_firewall), loaded by its own
-#     service (nikkita-firewall.service). Stopping it deletes that table and nothing
+#   * nftables, in a table of its own (inet nikita_firewall), loaded by its own
+#     service (nikita-firewall.service). Stopping it deletes that table and nothing
 #     else: Docker's rules, or a ruleset of yours, stay as they are.
 #   * Only the `input` hook: this computer isn't a router. Containers and virtual
 #     machines on it are trusted (docker0, br-*, virbr*, podman*).
@@ -35,10 +35,10 @@
 
 set -uo pipefail
 
-ETC="${FIREWALL_ETC:-/etc/nikkita-shell}"
+ETC="${FIREWALL_ETC:-/etc/nikita-shell}"
 UNIT_DIR="${FIREWALL_UNITS:-/etc/systemd/system}"
 SSHD_CONFIG="${FIREWALL_SSHD:-/etc/ssh}"
-UNIT=nikkita-firewall.service
+UNIT=nikita-firewall.service
 RULES="$ETC/firewall.nft"
 ALLOW="$ETC/firewall.allow"
 SIMULATED=${FIREWALL_ETC:+1}
@@ -111,12 +111,12 @@ rules() {
     local what
     cat <<'EOF'
 #!/usr/bin/nft -f
-# Written by scripts/firewall.sh (nikkita-shell). Change what is allowed
+# Written by scripts/firewall.sh (nikita-shell). Change what is allowed
 # with `firewall.sh allow|deny`, not here: this file is rewritten.
 
-destroy table inet nikkita_firewall
+destroy table inet nikita_firewall
 
-table inet nikkita_firewall {
+table inet nikita_firewall {
     # Who tried to open an SSH connection in the last minute, and how often.
     set ssh_tries4 { type ipv4_addr; flags dynamic, timeout; timeout 1m; size 65536; }
     set ssh_tries6 { type ipv6_addr; flags dynamic, timeout; timeout 1m; size 65536; }
@@ -162,7 +162,7 @@ write_unit() {
     mkdir -p "$UNIT_DIR"
     cat > "$UNIT_DIR/$UNIT" <<EOF
 [Unit]
-Description=Firewall (nikkita-shell): incoming connections blocked, except what is allowed
+Description=Firewall (nikita-shell): incoming connections blocked, except what is allowed
 Documentation=file://$RULES
 DefaultDependencies=no
 Wants=network-pre.target
@@ -174,7 +174,7 @@ Type=oneshot
 RemainAfterExit=yes
 ExecStart=/usr/bin/nft -f $RULES
 ExecReload=/usr/bin/nft -f $RULES
-ExecStop=/usr/bin/nft destroy table inet nikkita_firewall
+ExecStop=/usr/bin/nft destroy table inet nikita_firewall
 
 [Install]
 WantedBy=multi-user.target

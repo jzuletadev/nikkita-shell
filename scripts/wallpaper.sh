@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# ~/nikkita-shell/scripts/wallpaper.sh — wallpaper backend (awww, the lock and login screens)
+# ~/nikita-shell/scripts/wallpaper.sh — wallpaper backend (awww, the lock and login screens)
 #
 #   wallpaper.sh set FILE         a new wallpaper, on every monitor
 #   wallpaper.sh restore          the current one, on every monitor (at login)
@@ -9,10 +9,10 @@
 
 set -uo pipefail
 
-REPO="$HOME/nikkita-shell"
+REPO="$HOME/nikita-shell"
 DEFAULT_DIR="$HOME/Pictures/wallpapers"
-CURRENT="$HOME/.local/state/nikkita-shell/wallpaper"
-LOGIN="/var/lib/nikkita-shell"   # the login screen's copies (install-greeter.sh)
+CURRENT="$HOME/.local/state/nikita-shell/wallpaper"
+LOGIN="/var/lib/nikita-shell"   # the login screen's copies (install-greeter.sh)
 
 notify()   { notify-send -a Wallpaper "Wallpaper" "$1"; }
 is_image() { [ -f "$1" ] && [[ "${1,,}" =~ \.(jpe?g|png|webp|gif|bmp)$ ]]; }

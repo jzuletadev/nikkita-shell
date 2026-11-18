@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# ~/nikkita-shell/scripts/keymap.py
+# ~/nikita-shell/scripts/keymap.py
 #
 # Which key is which, for Settings → Shortcuts: the name Hyprland knows each key
 # by, per key code, in the first keyboard layout (Hyprland matches a shortcut's

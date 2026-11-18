@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/settings/NetworkPage.qml
+// ~/nikita-shell/dotfiles/quickshell/settings/NetworkPage.qml
 // Wired, Wi-Fi (panels/NetworkPanel), the firewall (services/Firewall.qml) and
 // NetworkManager's own tool. Wired goes last while unplugged, so "Cable unplugged"
 // isn't the first thing you read.

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# ~/nikkita-shell/scripts/idle.sh
+# ~/nikita-shell/scripts/idle.sh
 
 set -uo pipefail
 

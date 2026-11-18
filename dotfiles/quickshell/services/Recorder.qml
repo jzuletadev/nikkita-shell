@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/services/Recorder.qml
+// ~/nikita-shell/dotfiles/quickshell/services/Recorder.qml
 //
 // Screen recording with wf-recorder. Stopping is SIGINT, so it closes the mp4 cleanly.
 pragma Singleton

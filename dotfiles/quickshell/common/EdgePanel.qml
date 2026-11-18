@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/EdgePanel.qml
+// ~/nikita-shell/dotfiles/quickshell/common/EdgePanel.qml
 //
 // A panel that grows out of a screen edge, drawn inside one full-screen surface
 // per monitor (ScreenSurface.qml), so it animates without resizing a layer surface.
@@ -30,7 +30,7 @@ Item {
     property bool touchable: true           // a panel you open by touching its edge (not toasts)
     property bool hoverable: touchable && Prefs.opensOnTouch(name)   // Settings → Panels can turn it off
     property color panelColor: Theme.panel
-    property bool peekable: touchable       // answers "peek all" (`qs ipc call nikkita all`, Settings → Panels)
+    property bool peekable: touchable       // answers "peek all" (`qs ipc call nikita all`, Settings → Panels)
 
     // ---- state ----
     property bool pinned: false            // keep it open from outside

@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/services/NightLight.qml
+// ~/nikita-shell/dotfiles/quickshell/services/NightLight.qml
 //
 // Warmer colors at night, through hyprsunset (Hyprland's color matrix). It runs
 // only while the screen is warm: stopping it gives the colors back. The setting is

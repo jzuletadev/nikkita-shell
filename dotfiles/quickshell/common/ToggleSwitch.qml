@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/ToggleSwitch.qml
+// ~/nikita-shell/dotfiles/quickshell/common/ToggleSwitch.qml
 // An on/off switch with a sliding knob.
 import QtQuick
 import qs.common

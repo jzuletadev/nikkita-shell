@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# ~/nikkita-shell/scripts/face.py
+# ~/nikita-shell/scripts/face.py
 #
 # Your picture, ~/.face: the lock and login screens show it. Settings → Appearance
 # runs it.
@@ -29,7 +29,7 @@ SYNC = Path(__file__).resolve().parent / "greeter-sync.sh"
 def choose():
     """The portal's OpenFile: the answer comes as a Response signal on a request object."""
     bus = Gio.bus_get_sync(Gio.BusType.SESSION)
-    token = f"nikkita_face_{os.getpid()}"
+    token = f"nikita_face_{os.getpid()}"
     sender = bus.get_unique_name()[1:].replace(".", "_")
     request = f"/org/freedesktop/portal/desktop/request/{sender}/{token}"
     loop = GLib.MainLoop()

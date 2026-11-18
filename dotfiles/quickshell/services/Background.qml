@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/services/Background.qml
+// ~/nikita-shell/dotfiles/quickshell/services/Background.qml
 //
 // What is running, for the tray: apps with windows (from Hyprland, grouped per app,
 // minimized ones included) and the services in `known`, checked with systemctl only

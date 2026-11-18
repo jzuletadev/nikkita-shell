@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/surfaces/Switcher.qml
+// ~/nikita-shell/dotfiles/quickshell/surfaces/Switcher.qml
 //
 // ALT+TAB's keyboard: an invisible surface that takes the keys while the switcher
 // is open (services/WindowSwitch.qml), since the panels' surface never does. What
@@ -27,7 +27,7 @@ PanelWindow {
     exclusionMode: ExclusionMode.Ignore
     color: "transparent"
     WlrLayershell.layer: WlrLayer.Overlay
-    WlrLayershell.namespace: "nikkita-switcher"
+    WlrLayershell.namespace: "nikita-switcher"
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
 
     // Everything but the rail (ShellState.switcherRail, kept by the rail).

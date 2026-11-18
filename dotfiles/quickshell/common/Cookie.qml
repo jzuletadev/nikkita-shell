@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/Cookie.qml
+// ~/nikita-shell/dotfiles/quickshell/common/Cookie.qml
 // A scalloped badge with a value inside (CPU, GPU usage). It turns a little on each
 // change. Amber from 75, red from 90.
 import QtQuick

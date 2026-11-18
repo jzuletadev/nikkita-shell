@@ -1,6 +1,6 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/Prefs.qml
+// ~/nikita-shell/dotfiles/quickshell/common/Prefs.qml
 //
-// Preferences only the desktop owns, in ~/.local/state/nikkita-shell/settings.json
+// Preferences only the desktop owns, in ~/.local/state/nikita-shell/settings.json
 // (the theme, volume and Wi-Fi keep their own homes). The file is watched; writes are
 // delayed so a dragged slider doesn't write on every pixel.
 pragma Singleton

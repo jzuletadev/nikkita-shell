@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/services/Net.qml
+// ~/nikita-shell/dotfiles/quickshell/services/Net.qml
 //
 // The Wi-Fi and wired devices (NetworkManager). Wired: `hasLink` is the cable; its
 // `network` (the profile) doesn't exist until a cable is first plugged in.

@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/surfaces/Tray.qml
+// ~/nikita-shell/dotfiles/quickshell/surfaces/Tray.qml
 
 import QtQuick
 import Quickshell

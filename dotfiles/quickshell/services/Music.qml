@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/services/Music.qml
+// ~/nikita-shell/dotfiles/quickshell/services/Music.qml
 //
 // The local music player. Library and playlists (.m3u8 in ~/Music/Playlists) come
 // from scripts/music-library.py; playback is an audio-only mpv driven through its
@@ -18,8 +18,8 @@ Singleton {
     property string root: Paths.music
     readonly property string script: Paths.script("music-library.py")
     readonly property string runtime: Quickshell.env("XDG_RUNTIME_DIR") || "/tmp"
-    readonly property string socketPath: runtime + "/nikkita-music.sock"
-    readonly property string queuePath: runtime + "/nikkita-music-queue.m3u"
+    readonly property string socketPath: runtime + "/nikita-music.sock"
+    readonly property string queuePath: runtime + "/nikita-music-queue.m3u"
 
     // ======== the library ========
     property var songs: []
@@ -340,7 +340,7 @@ Singleton {
     readonly property QtObject player: QtObject {
         readonly property bool isLocal: true
         readonly property string identity: "Music"
-        readonly property string dbusName: "nikkita-music"
+        readonly property string dbusName: "nikita-music"
         readonly property string desktopEntry: ""
         readonly property string trackTitle: music.current ? music.current.title : (music.meta.title || music.path.split("/").pop())
         readonly property string trackArtist: music.current ? music.current.artist : (music.meta.artist || "")

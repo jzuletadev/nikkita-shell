@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/settings/ResetButton.qml
+// ~/nikita-shell/dotfiles/quickshell/settings/ResetButton.qml
 // Back to the default, beside a setting: it shows only once that setting is
 // changed, so a value touched by mistake can always be found again.
 import QtQuick

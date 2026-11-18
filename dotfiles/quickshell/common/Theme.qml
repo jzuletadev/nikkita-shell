@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/Theme.qml
+// ~/nikita-shell/dotfiles/quickshell/common/Theme.qml
 //
 // The desktop colors: two gray themes, dark and light. Red and amber only warn
 // (recording, danger, high load). The theme file (theme-manager.sh) is watched and

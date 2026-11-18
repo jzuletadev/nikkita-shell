@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/HexShape.qml
+// ~/nikita-shell/dotfiles/quickshell/common/HexShape.qml
 // A rounded hexagon, flat on top and bottom, filling its box (a regular one is
 // 1.155 times as wide as tall). The picture frame and mask, and the lock screen's
 // card, which is stretched: its sides have a shallower `point`.

@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/surfaces/RecordingMark.qml
+// ~/nikita-shell/dotfiles/quickshell/surfaces/RecordingMark.qml
 
 import QtQuick
 import qs.common

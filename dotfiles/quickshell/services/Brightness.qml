@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/services/Brightness.qml
+// ~/nikita-shell/dotfiles/quickshell/services/Brightness.qml
 //
 // Screen brightness through brightnessctl. /sys doesn't announce changes, so it is
 // re-read when the dock opens and after each change; closed, nothing is polled.

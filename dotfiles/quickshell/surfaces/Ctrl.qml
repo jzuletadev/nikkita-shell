@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/surfaces/Ctrl.qml
+// ~/nikita-shell/dotfiles/quickshell/surfaces/Ctrl.qml
 
 import QtQuick
 import qs.common

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# ~/nikkita-shell/tests/run.sh
+# ~/nikita-shell/tests/run.sh
 #
 # Every check that runs without touching the desktop: the launcher's ranking and
 # calculator and shortcut capture (QML, headless), GPU detection and the battery's

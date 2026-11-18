@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/services/ChargeLimit.qml
+// ~/nikita-shell/dotfiles/quickshell/services/ChargeLimit.qml
 //
 // The battery's charge limit ("stop at 80 %"), on laptops whose driver has the
 // kernel's switch for it (scripts/charge-limit.sh: which ones, and how they

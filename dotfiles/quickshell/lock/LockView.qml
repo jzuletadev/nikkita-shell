@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/lock/LockView.qml
+// ~/nikita-shell/dotfiles/quickshell/lock/LockView.qml
 //
 // One monitor of the lock screen, and of the login screen (GreeterView): a card
 // over the blurred wallpaper, with the picture (else the initial) in a hexagon on

@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/services/Firewall.qml
+// ~/nikita-shell/dotfiles/quickshell/services/Firewall.qml
 //
 // The firewall (scripts/firewall.sh): whether it is on and what is let in. Reading
 // needs nothing; every change needs root, so it goes through pkexec and the

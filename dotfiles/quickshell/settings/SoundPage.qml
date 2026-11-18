@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/settings/SoundPage.qml
+// ~/nikita-shell/dotfiles/quickshell/settings/SoundPage.qml
 // Outputs and inputs (panels/SoundPanel), and the volume of each app playing.
 import QtQuick
 import Quickshell.Services.Pipewire

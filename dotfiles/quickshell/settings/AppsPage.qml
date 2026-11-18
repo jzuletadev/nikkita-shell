@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/settings/AppsPage.qml
+// ~/nikita-shell/dotfiles/quickshell/settings/AppsPage.qml
 //
 // The app that opens each kind of file, through `gio mime` (~/.config/mimeapps.list).
 // Choosing an app sets it for every type of that kind (all image formats, say).

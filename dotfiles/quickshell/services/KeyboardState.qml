@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/services/KeyboardState.qml
+// ~/nikita-shell/dotfiles/quickshell/services/KeyboardState.qml
 //
 // The keyboard layouts and which one is on, and Caps Lock (Qt doesn't say). Read
 // from the main keyboard; switching applies to all of them.

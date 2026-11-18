@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# ~/nikkita-shell/scripts/updates.sh
+# ~/nikita-shell/scripts/updates.sh
 #
 # Package updates, for the desktop (services/Updates.qml).
 #   updates.sh check     JSON on stdout: {"repo": [{"name", "from", "to"}], "aur": [...]}.
@@ -48,7 +48,7 @@ install)
         echo "AUR packages (paru):"
         paru -Sua
     fi
-    qs ipc call nikkita updates >/dev/null 2>&1
+    qs ipc call nikita updates >/dev/null 2>&1
     echo
     read -rp "Done. Press Enter to close. " _
     ;;

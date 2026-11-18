@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/Glyph.qml
+// ~/nikita-shell/dotfiles/quickshell/common/Glyph.qml
 // A Nerd Font icon by code point, for what Adwaita has no symbolic icon for.
 import QtQuick
 import qs.common

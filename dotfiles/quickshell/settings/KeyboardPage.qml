@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/settings/KeyboardPage.qml
+// ~/nikita-shell/dotfiles/quickshell/settings/KeyboardPage.qml
 // The keyboard: its layouts (add, remove, pick), how keys repeat, and its backlight
 // where there is one. Hyprland owns these: services/HyprSettings.qml applies them.
 import QtQuick

@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/services/Notifs.qml
+// ~/nikita-shell/dotfiles/quickshell/services/Notifs.qml
 //
 // The notification server (drawn by Toasts.qml).
 //

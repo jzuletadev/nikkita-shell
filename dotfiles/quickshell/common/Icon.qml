@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/Icon.qml
+// ~/nikita-shell/dotfiles/quickshell/common/Icon.qml
 //
 // A symbolic theme icon, tinted. Qt paints the gray baked into the SVG, so it goes
 // through MultiEffect: white, then the color. App icons: AppIcon.qml.

@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/surfaces/ScreenSurface.qml
+// ~/nikita-shell/dotfiles/quickshell/surfaces/ScreenSurface.qml
 
 import QtQuick
 import Quickshell
@@ -23,7 +23,7 @@ PanelWindow {
     exclusionMode: ExclusionMode.Ignore
     color: "transparent"
     WlrLayershell.layer: WlrLayer.Overlay
-    WlrLayershell.namespace: "nikkita"
+    WlrLayershell.namespace: "nikita"
     // Never the keyboard: it would steal keys from the windows.
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
 

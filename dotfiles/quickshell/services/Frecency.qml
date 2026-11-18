@@ -1,7 +1,7 @@
-// ~/nikkita-shell/dotfiles/quickshell/services/Frecency.qml
+// ~/nikita-shell/dotfiles/quickshell/services/Frecency.qml
 //
 // What you open from the launcher, and how often and how recently, in
-// ~/.local/state/nikkita-shell/launcher.json. `boost(id)` is at most 40
+// ~/.local/state/nikita-shell/launcher.json. `boost(id)` is at most 40
 // points: enough to put what you use first among similar matches, never enough to
 // lift a description match over a name match (Fuzzy.js keeps those 1000 apart).
 pragma Singleton

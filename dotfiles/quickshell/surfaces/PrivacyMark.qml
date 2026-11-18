@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/surfaces/PrivacyMark.qml
+// ~/nikita-shell/dotfiles/quickshell/surfaces/PrivacyMark.qml
 //
 // An amber notch at the bottom while an app uses the microphone, the camera or
 // your screen (services/Privacy.qml); the tray, right above it, says who. Beside

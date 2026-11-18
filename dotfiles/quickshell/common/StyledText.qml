@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/StyledText.qml
+// ~/nikita-shell/dotfiles/quickshell/common/StyledText.qml
 // Text in the desktop's font and color.
 import QtQuick
 import qs.common

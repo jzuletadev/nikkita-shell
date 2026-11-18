@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/settings/AboutPage.qml
+// ~/nikita-shell/dotfiles/quickshell/settings/AboutPage.qml
 // This desktop and this computer, from `system-stats.py --machine`. The Arch logo
 // on the workspace rail opens this page.
 import QtQuick
@@ -50,7 +50,7 @@ Column {
             }
             StyledText {
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: "Nikkita Shell"
+                text: "Nikita Shell"
                 font.pixelSize: Theme.textDisplay
                 font.weight: Font.DemiBold
             }

@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/settings/TimeStepper.qml
+// ~/nikita-shell/dotfiles/quickshell/settings/TimeStepper.qml
 // A time of day in half-hour steps: − 20:00 +. `value` is minutes after midnight.
 import QtQuick
 import qs.common

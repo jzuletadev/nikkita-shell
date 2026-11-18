@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/Calc.js
+// ~/nikita-shell/dotfiles/quickshell/common/Calc.js
 //
 // The launcher's calculator: + - * / % (remainder) ^, parentheses, decimals with a
 // point or a comma, x and × for times, ÷, and sqrt sin cos tan asin acos atan log

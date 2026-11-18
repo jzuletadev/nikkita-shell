@@ -1,15 +1,15 @@
-# ~/nikkita-shell/system/shell/nikkita-shell.service
+# ~/nikita-shell/system/shell/nikita-shell.service
 #
 # The desktop shell (dotfiles/quickshell) as a user service: systemd brings it back
 # if it dies, so the panels, notifications and the password dialog never stay
 # gone. hyprland.lua starts it once the session's environment is in systemd;
 # install.sh copies it to ~/.config/systemd/user/.
 #
-#   systemctl --user restart nikkita-shell     restart the shell
-#   journalctl --user -u nikkita-shell         what it said, besides `qs log`
+#   systemctl --user restart nikita-shell     restart the shell
+#   journalctl --user -u nikita-shell         what it said, besides `qs log`
 
 [Unit]
-Description=Desktop shell (nikkita-shell, Quickshell)
+Description=Desktop shell (nikita-shell, Quickshell)
 PartOf=graphical-session.target
 After=graphical-session.target
 # A shell that can't start (a broken edit) doesn't loop forever: five tries a minute.

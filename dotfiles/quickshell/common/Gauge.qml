@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/Gauge.qml
+// ~/nikita-shell/dotfiles/quickshell/common/Gauge.qml
 // A 0-100 gauge: a 270° arc open at the bottom, with the value and a caption in
 // the middle. Amber from 75, red from 90, like Ring.
 import QtQuick

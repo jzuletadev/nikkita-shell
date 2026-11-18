@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/panels/NetworkPanel.qml
+// ~/nikita-shell/dotfiles/quickshell/panels/NetworkPanel.qml
 //
 // Wi-Fi (NetworkManager, through Quickshell's networking module). A secured network
 // asks for its password here; on failure the reason is shown and the password

@@ -1,7 +1,7 @@
-// ~/nikkita-shell/dotfiles/quickshell/services/ShellState.qml
+// ~/nikita-shell/dotfiles/quickshell/services/ShellState.qml
 //
 // The state shared by every screen, and the commands hyprland.lua calls
-// (`qs ipc call nikkita <command>`).
+// (`qs ipc call nikita <command>`).
 pragma Singleton
 
 import QtQuick
@@ -29,12 +29,12 @@ Singleton {
     property bool settingsWaiting: false
     property bool authAsking: false
     // Settings → Shortcuts is waiting for the keys of a shortcut: meanwhile Hyprland
-    // is in the "nikkita-capture" set of shortcuts (hyprland.lua), which has none of the
+    // is in the "nikita-capture" set of shortcuts (hyprland.lua), which has none of the
     // usual ones, so every key reaches the Settings window (SUPER + Q is then a press
     // to read, not "close this window"). Not the shortcuts-inhibit protocol: Hyprland
     // ignores it for a window that holds a focus grab, as Settings does (measured).
     property bool capturingKeys: false
-    onCapturingKeysChanged: Hyprland.dispatch(capturingKeys ? 'hl.dsp.submap("nikkita-capture")' : 'hl.dsp.submap("reset")')
+    onCapturingKeysChanged: Hyprland.dispatch(capturingKeys ? 'hl.dsp.submap("nikita-capture")' : 'hl.dsp.submap("reset")')
     // A shell that went away while capturing left Hyprland without its shortcuts.
     Component.onCompleted: Hyprland.dispatch('hl.dsp.submap("reset")')
     property string settingsPage: "appearance"
@@ -103,13 +103,13 @@ Singleton {
     // ALT+TAB and ALT+SHIFT+TAB, bound in hyprland.lua to these global shortcuts:
     // Hyprland keeps ALT+TAB to itself, so the switcher can't read it as a key.
     GlobalShortcut {
-        appid: "nikkita"
+        appid: "nikita"
         name: "switcher"
         description: "Switch windows: the next one"
         onPressed: WindowSwitch.step(1)
     }
     GlobalShortcut {
-        appid: "nikkita"
+        appid: "nikita"
         name: "switcherBack"
         description: "Switch windows: the previous one"
         onPressed: WindowSwitch.step(-1)
@@ -162,7 +162,7 @@ Singleton {
     }
 
     IpcHandler {
-        target: "nikkita"
+        target: "nikita"
 
         function launcher(): void {
             shellState.toggleLauncher();

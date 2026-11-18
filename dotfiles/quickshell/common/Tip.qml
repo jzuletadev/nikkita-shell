@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/Tip.qml
+// ~/nikita-shell/dotfiles/quickshell/common/Tip.qml
 //
 // A tooltip for what takes the pointer: declare it inside that item.
 //

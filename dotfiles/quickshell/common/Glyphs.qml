@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/Glyphs.qml
+// ~/nikita-shell/dotfiles/quickshell/common/Glyphs.qml
 //
 // Nerd Font icons used for the same thing in more than one place, by name, so one
 // idea keeps one icon everywhere. For what Adwaita has no icon for; Glyph.qml and

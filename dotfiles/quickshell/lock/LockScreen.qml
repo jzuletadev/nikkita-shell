@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/lock/LockScreen.qml
+// ~/nikita-shell/dotfiles/quickshell/lock/LockScreen.qml
 //
 // The lock screen (Wayland session lock): one LockView per monitor, sharing one
 // LockContext. If Quickshell dies while locked the session STAYS locked, and

@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/settings/AppearancePage.qml
+// ~/nikita-shell/dotfiles/quickshell/settings/AppearancePage.qml
 // In the order you'd set them up: the wallpaper (the one in use, then the gallery);
 // your picture; the theme; the panels' transparency.
 import QtQuick

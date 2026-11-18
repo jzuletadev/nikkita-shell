@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/panels/WallpaperPanel.qml
+// ~/nikita-shell/dotfiles/quickshell/panels/WallpaperPanel.qml
 //
 // The gallery of ~/Pictures/wallpapers; a click runs `wallpaper.sh set`. Thumbnails
 // load small (sourceSize): at natural size they eat memory.

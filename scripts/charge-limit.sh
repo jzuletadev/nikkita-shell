@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# ~/nikkita-shell/scripts/charge-limit.sh
+# ~/nikita-shell/scripts/charge-limit.sh
 #
 # Stop charging the laptop's battery below full (80 %, say): a battery kept under
 # 100 % lasts more years. For any laptop whose driver has the kernel's standard
@@ -27,10 +27,10 @@
 set -uo pipefail
 
 SYS="${POWER_SUPPLY:-/sys/class/power_supply}"
-ETC="${CHARGE_LIMIT_ETC:-/etc/nikkita-shell}"
-LIB="${CHARGE_LIMIT_LIB:-/usr/local/lib/nikkita-shell}"
+ETC="${CHARGE_LIMIT_ETC:-/etc/nikita-shell}"
+LIB="${CHARGE_LIMIT_LIB:-/usr/local/lib/nikita-shell}"
 UNIT_DIR="${CHARGE_LIMIT_UNITS:-/etc/systemd/system}"
-UNIT=nikkita-charge-limit.service
+UNIT=nikita-charge-limit.service
 SIMULATED=${POWER_SUPPLY:+1}
 
 # The first battery that has the switch.
@@ -124,7 +124,7 @@ set)
         install -m755 "$0" "$LIB/charge-limit.sh"
         cat > "$UNIT_DIR/$UNIT" <<EOF
 [Unit]
-Description=Battery charge limit (nikkita-shell): put it back at boot
+Description=Battery charge limit (nikita-shell): put it back at boot
 After=sysinit.target
 
 [Service]

@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/greeter/GreeterView.qml
+// ~/nikita-shell/dotfiles/quickshell/greeter/GreeterView.qml
 //
 // One monitor of the login screen: the lock screen's view, with the computer's name
 // in the card's foot and, when there are several users, a button to switch.

@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/surfaces/NotificationCenter.qml
+// ~/nikita-shell/dotfiles/quickshell/surfaces/NotificationCenter.qml
 
 import QtQuick
 import Quickshell

@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/EdgeFade.qml
+// ~/nikita-shell/dotfiles/quickshell/common/EdgeFade.qml
 //
 // A fade over the bottom of a list while more is below it, so the row that doesn't
 // fit looks cut on purpose. The list's sibling, like ScrollHint. `tone` is what is

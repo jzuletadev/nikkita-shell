@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/AppIcon.qml
+// ~/nikita-shell/dotfiles/quickshell/common/AppIcon.qml
 // An application icon, in full color. Takes a theme icon name or a path.
 import QtQuick
 import Quickshell

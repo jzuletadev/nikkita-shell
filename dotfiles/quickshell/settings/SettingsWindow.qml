@@ -1,6 +1,6 @@
-// ~/nikkita-shell/dotfiles/quickshell/settings/SettingsWindow.qml
+// ~/nikita-shell/dotfiles/quickshell/settings/SettingsWindow.qml
 //
-// The Settings window (`qs ipc call nikkita settings [page]`). Each page is built when
+// The Settings window (`qs ipc call nikita settings [page]`). Each page is built when
 // chosen, so Wi-Fi only scans while its page is shown.
 //
 // Keys: typing anywhere filters the pages (Up/Down pick, Enter opens); Escape

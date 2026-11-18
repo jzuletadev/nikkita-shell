@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/panels/BluetoothRow.qml
+// ~/nikita-shell/dotfiles/quickshell/panels/BluetoothRow.qml
 // One device in BluetoothPanel. A click asks the panel to act (`panel.toggle`).
 import QtQuick
 import Quickshell.Bluetooth

@@ -1,4 +1,4 @@
-# ~/nikkita-shell/system/nvidia/99-gpu-symlinks.rules
+# ~/nikita-shell/system/nvidia/99-gpu-symlinks.rules
 # Stable names for the GPUs, by VENDOR (a PCI address can change between boots):
 # /dev/dri/amd-igpu or intel-igpu, and nvidia-dgpu. For DRI_PRIME and for launching
 # something on a given card; Hyprland itself finds them by driver (env-hyprland).

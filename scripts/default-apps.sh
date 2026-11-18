@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# ~/nikkita-shell/scripts/default-apps.sh
+# ~/nikita-shell/scripts/default-apps.sh
 #
 # Default apps (~/.config/mimeapps.list): folders -> Nautilus, images -> Loupe, video and
 # audio -> Celluloid. Settings -> Default apps changes them later, kind by kind.

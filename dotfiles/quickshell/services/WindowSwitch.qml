@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/services/WindowSwitch.qml
+// ~/nikita-shell/dotfiles/quickshell/services/WindowSwitch.qml
 //
 // ALT+TAB: which windows, which one is chosen, and switching to it. The workspace
 // rail shows it (it grows to list the windows); surfaces/Switcher.qml takes the

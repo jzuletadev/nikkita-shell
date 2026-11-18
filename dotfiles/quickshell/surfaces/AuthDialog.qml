@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/surfaces/AuthDialog.qml
+// ~/nikita-shell/dotfiles/quickshell/surfaces/AuthDialog.qml
 
 import QtQuick
 import Quickshell
@@ -67,7 +67,7 @@ Scope {
         exclusionMode: ExclusionMode.Ignore
         color: "transparent"
         WlrLayershell.layer: WlrLayer.Overlay
-        WlrLayershell.namespace: "nikkita-auth"
+        WlrLayershell.namespace: "nikita-auth"
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
 
         property real shown: 0

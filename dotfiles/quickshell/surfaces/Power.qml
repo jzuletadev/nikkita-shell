@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/surfaces/Power.qml
+// ~/nikita-shell/dotfiles/quickshell/surfaces/Power.qml
 
 import QtQuick
 import Quickshell

@@ -1,4 +1,4 @@
-# ~/nikkita-shell/packages/removed.txt
+# ~/nikita-shell/packages/removed.txt
 #
 # What earlier versions of this desktop installed and this one replaced. install.sh
 # offers to remove the ones still installed explicitly (default: no), with

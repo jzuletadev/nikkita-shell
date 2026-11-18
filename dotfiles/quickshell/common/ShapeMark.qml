@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/ShapeMark.qml
+// ~/nikita-shell/dotfiles/quickshell/common/ShapeMark.qml
 // The desktop's four marks: circle, square, cross, triangle (`index` 0-3, then
 // again). Used by the workspace rail and the lock screen's password.
 import QtQuick

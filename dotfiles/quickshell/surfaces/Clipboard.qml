@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/surfaces/Clipboard.qml
+// ~/nikita-shell/dotfiles/quickshell/surfaces/Clipboard.qml
 
 import QtQuick
 import qs.common

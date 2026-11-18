@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/settings/SettingsPages.qml
+// ~/nikita-shell/dotfiles/quickshell/settings/SettingsPages.qml
 //
 // The Settings pages: the window's sidebar and the launcher both list them.
 // `keys` are extra words a search should find the page by.

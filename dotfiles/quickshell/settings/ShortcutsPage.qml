@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/settings/ShortcutsPage.qml
+// ~/nikita-shell/dotfiles/quickshell/settings/ShortcutsPage.qml
 // Every keyboard shortcut, by section, with a filter. Click a shortcut's keys and
 // press the new ones (Esc cancels, Backspace turns it off). Below, your own: a
 // command for a key. hyprland.lua defines the shortcuts and publishes them;

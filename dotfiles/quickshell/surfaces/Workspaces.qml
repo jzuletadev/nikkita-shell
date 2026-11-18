@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/surfaces/Workspaces.qml
+// ~/nikita-shell/dotfiles/quickshell/surfaces/Workspaces.qml
 //
 // The workspace rail, on the left edge. With ALT+TAB it grows: the windows, the
 // most recent first, unfold beside the workspaces (services/WindowSwitch.qml), and

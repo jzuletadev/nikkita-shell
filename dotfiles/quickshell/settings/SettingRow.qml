@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/settings/SettingRow.qml
+// ~/nikita-shell/dotfiles/quickshell/settings/SettingRow.qml
 // One setting inside a Section; its control goes on the right.
 import QtQuick
 import qs.common

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# ~/nikkita-shell/scripts/audio-check.sh
+# ~/nikita-shell/scripts/audio-check.sh
 
 set -uo pipefail
 

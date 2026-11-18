@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/services/HyprSettings.qml
+// ~/nikita-shell/dotfiles/quickshell/services/HyprSettings.qml
 //
 // What Settings changes in Hyprland: input options (keyboard, mouse, touchpad), the
 // keys of a shortcut, your own shortcuts, touchpad gestures.
@@ -7,7 +7,7 @@
 //     hyprland-settings.lua in the state folder, which hyprland.lua reads over its
 //     defaults, and Hyprland is reloaded.
 //   * hyprland.lua stays the place where shortcuts and gestures are defined, and
-//     publishes them (nikkita.json in Hyprland's runtime folder): every shortcut with
+//     publishes them (nikita.json in Hyprland's runtime folder): every shortcut with
 //     its id and default keys, the default gestures, what a gesture can do.
 //   * Input options are read back from Hyprland itself (`hyprctl getoption`), so a
 //     page shows what is really in use, changed here or not.
@@ -33,7 +33,7 @@ Singleton {
 
     FileView {
         id: published
-        path: Quickshell.env("XDG_RUNTIME_DIR") + "/hypr/" + Quickshell.env("HYPRLAND_INSTANCE_SIGNATURE") + "/nikkita.json"
+        path: Quickshell.env("XDG_RUNTIME_DIR") + "/hypr/" + Quickshell.env("HYPRLAND_INSTANCE_SIGNATURE") + "/nikita.json"
         watchChanges: true
         printErrors: false
         onFileChanged: reload()
@@ -244,7 +244,7 @@ Singleton {
     function lua() {
         const out = ["-- Written by Settings (dotfiles/quickshell/services/HyprSettings.qml): what you changed",
                      "-- there, read by hyprland.lua over its defaults. Change it in Settings, not here: it is",
-                     "-- rewritten from ~/.local/state/nikkita-shell/settings.json.", "return {"];
+                     "-- rewritten from ~/.local/state/nikita-shell/settings.json.", "return {"];
         // input, and its touchpad table
         const top = [], pad = [];
         for (const name of Object.keys(known)) {

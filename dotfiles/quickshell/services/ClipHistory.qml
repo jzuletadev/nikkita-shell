@@ -1,8 +1,8 @@
-// ~/nikkita-shell/dotfiles/quickshell/services/ClipHistory.qml
+// ~/nikita-shell/dotfiles/quickshell/services/ClipHistory.qml
 //
 // The clipboard history, fed by a `wl-paste --watch` this process owns. Text only;
 // what a password manager marks secret (x-kde-passwordManagerHint) isn't stored.
-// Saved in ~/.local/state/nikkita-shell/clipboard.json.
+// Saved in ~/.local/state/nikita-shell/clipboard.json.
 pragma Singleton
 
 import QtQuick
@@ -44,11 +44,11 @@ Singleton {
     }
 
     // A Quickshell that dies abruptly leaves its wl-paste alive and orphaned. Before
-    // listening, any not owned by this process is stopped (they carry the nikkita-clip mark).
+    // listening, any not owned by this process is stopped (they carry the nikita-clip mark).
     Process {
         id: limpiar
         running: true
-        command: ["sh", "-c", "for p in $(pgrep -x wl-paste); do [ \"$(awk '{print $4}' /proc/$p/stat)\" = \"$PPID\" ] && continue; grep -qa nikkita-clip /proc/$p/cmdline && kill $p; done; true"]
+        command: ["sh", "-c", "for p in $(pgrep -x wl-paste); do [ \"$(awk '{print $4}' /proc/$p/stat)\" = \"$PPID\" ] && continue; grep -qa nikita-clip /proc/$p/cmdline && kill $p; done; true"]
         onExited: watcher.running = true
     }
 
@@ -56,7 +56,7 @@ Singleton {
     Process {
         id: watcher
         command: ["wl-paste", "--type", "text", "--watch", "sh", "-c",
-            "wl-paste --list-types 2>/dev/null | grep -q x-kde-passwordManagerHint && exit 0; head -c 262144; printf '\\036'", "nikkita-clip"]
+            "wl-paste --list-types 2>/dev/null | grep -q x-kde-passwordManagerHint && exit 0; head -c 262144; printf '\\036'", "nikita-clip"]
         stdout: SplitParser {
             splitMarker: "\u001e"
             onRead: data => clip.add(data)

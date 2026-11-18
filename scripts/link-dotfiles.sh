@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# ~/nikkita-shell/scripts/link-dotfiles.sh
+# ~/nikita-shell/scripts/link-dotfiles.sh
 
 set -euo pipefail
 
-REPO="$HOME/nikkita-shell"
+REPO="$HOME/nikita-shell"
 CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}"
 STAMP="$(date +%Y%m%d-%H%M%S)"
-MARKER=".nikkita-shell"   # inside copied folders
+MARKER=".nikita-shell"   # inside copied folders
 MODE=link
 DRY=0
 for arg in "$@"; do
@@ -21,7 +21,7 @@ run() {
     if (( DRY )); then echo "  would run: $*"; else "$@"; fi
 }
 
-# Scripts, wallpapers and the Quickshell desktop reference ~/nikkita-shell.
+# Scripts, wallpapers and the Quickshell desktop reference ~/nikita-shell.
 if [[ "$(cd "$(dirname "$0")/.." && pwd)" != "$REPO" ]]; then
     echo "error: the repo must be cloned at $REPO (configs and scripts reference that path)" >&2
     exit 1

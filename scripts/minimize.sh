@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# ~/nikkita-shell/scripts/minimize.sh
+# ~/nikita-shell/scripts/minimize.sh
 
 #   minimize.sh window    the focused window
 #   minimize.sh all       every window on this workspace
@@ -40,7 +40,7 @@ move_all() {   # move_all <from> <to>: one batch, so it's a single redraw
 }
 
 # What hide-all moved away: "address workspace" a line, until show-all.
-NOTED="${XDG_RUNTIME_DIR:-/tmp}/nikkita-hidden-windows"
+NOTED="${XDG_RUNTIME_DIR:-/tmp}/nikita-hidden-windows"
 
 hide_all() {
     local lines

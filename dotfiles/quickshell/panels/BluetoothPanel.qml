@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/panels/BluetoothPanel.qml
+// ~/nikita-shell/dotfiles/quickshell/panels/BluetoothPanel.qml
 //
 // Bluetooth. Search runs for 10 s; unpaired devices with no name (only an address)
 // are hidden. New devices pair through scripts/bt-pair.py: pairing needs a BlueZ

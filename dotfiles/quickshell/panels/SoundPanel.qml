@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/panels/SoundPanel.qml
+// ~/nikita-shell/dotfiles/quickshell/panels/SoundPanel.qml
 //
 // Audio outputs and inputs. PipeWire lists every HDMI output of the GPU, even with
 // no monitor, and switching to one fails silently: only pactl knows a port is

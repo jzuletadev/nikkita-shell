@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/Equalizer.qml
+// ~/nikita-shell/dotfiles/quickshell/common/Equalizer.qml
 // Four bars that dance while something plays: a sign, not a meter.
 import QtQuick
 import qs.common

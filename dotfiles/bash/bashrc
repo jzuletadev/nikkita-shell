@@ -1,4 +1,4 @@
-# ~/nikkita-shell/dotfiles/bash/bashrc
+# ~/nikita-shell/dotfiles/bash/bashrc
 
 [[ $- == *i* ]] || return
 

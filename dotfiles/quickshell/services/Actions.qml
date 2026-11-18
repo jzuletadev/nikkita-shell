@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/services/Actions.qml
+// ~/nikita-shell/dotfiles/quickshell/services/Actions.qml
 //
 // What the launcher can do besides opening apps and Settings pages. Titles follow
 // the current state ("Turn Wi-Fi off" while it's on). Nothing here loses work:

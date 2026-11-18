@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
-# ~/nikkita-shell/scripts/greeter-sync.sh
+# ~/nikita-shell/scripts/greeter-sync.sh
 #
 # Copies what the login screen shows of you (theme, clock format, picture) and the
-# monitor layout you kept in Settings → Display to /var/lib/nikkita-shell,
+# monitor layout you kept in Settings → Display to /var/lib/nikita-shell,
 # which it can read. Quickshell runs it whenever the
 # theme or the settings load; it does nothing until install-greeter.sh made that folder.
 
 set -euo pipefail
 
-SHARED=/var/lib/nikkita-shell
-STATE="$HOME/.local/state/nikkita-shell"
+SHARED=/var/lib/nikita-shell
+STATE="$HOME/.local/state/nikita-shell"
 
 [ -w "$SHARED" ] || exit 0
 

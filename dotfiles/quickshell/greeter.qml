@@ -1,14 +1,14 @@
 //@ pragma UseQApplication
 //@ pragma IconTheme Adwaita
 
-// ~/nikkita-shell/dotfiles/quickshell/greeter.qml
+// ~/nikita-shell/dotfiles/quickshell/greeter.qml
 //
 // The login screen: the lock screen's view, with greetd instead of PAM. greetd
 // runs it in a Hyprland of its own (system/greetd), from the copy that
-// scripts/install-greeter.sh keeps in /usr/share/nikkita-shell.
+// scripts/install-greeter.sh keeps in /usr/share/nikita-shell.
 //
 // Preview in a window (your theme and wallpaper; nothing logs in):
-//   NIKKITA_GREETER_PREVIEW=1 qs -p ~/nikkita-shell/dotfiles/quickshell/greeter.qml
+//   NIKITA_GREETER_PREVIEW=1 qs -p ~/nikita-shell/dotfiles/quickshell/greeter.qml
 
 import QtQuick
 import Quickshell
@@ -36,7 +36,7 @@ ShellRoot {
             exclusionMode: ExclusionMode.Ignore
             color: "black"
             WlrLayershell.layer: WlrLayer.Overlay
-            WlrLayershell.namespace: "nikkita-greeter"
+            WlrLayershell.namespace: "nikita-greeter"
             WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
 
             GreeterView {

@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/PillButton.qml
+// ~/nikita-shell/dotfiles/quickshell/common/PillButton.qml
 //
 // The desktop's pill: icon (or a Nerd Font glyph), text or both. `active` fills it
 // (a toggle that is on, the chosen option); the pointer only lightens it and draws a

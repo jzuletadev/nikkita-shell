@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/settings/PanelsPage.qml
+// ~/nikita-shell/dotfiles/quickshell/settings/PanelsPage.qml
 // The edge panels: which open on touching their edge, and the workspace rail.
 import QtQuick
 import qs.common

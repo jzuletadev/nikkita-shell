@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# ~/nikkita-shell/scripts/xkb-layouts.py
+# ~/nikita-shell/scripts/xkb-layouts.py
 #
 # Every keyboard layout XKB knows, with its variants, for Settings → Keyboard.
 # JSON on stdout: [{"layout": "es", "variant": "", "name": "Spanish"},

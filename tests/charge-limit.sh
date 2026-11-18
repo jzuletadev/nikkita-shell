@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# ~/nikkita-shell/tests/charge-limit.sh
+# ~/nikita-shell/tests/charge-limit.sh
 #
 # scripts/charge-limit.sh against simulated laptops (POWER_SUPPLY points it at a
 # fake /sys/class/power_supply): the three kinds of driver, a laptop without the
@@ -43,7 +43,7 @@ check "asus: starts unlimited" "$(run "$m" status)" '{"supported": true, "batter
 run "$m" set 80
 check "asus: end threshold" "$(file "$m/sys/BAT0/charge_control_end_threshold")" 80
 check "asus: saved for the next boot" "$(file "$m/etc/charge-limit")" 80
-check "asus: the boot service runs root's copy" "$(grep -c "ExecStart=$m/lib/charge-limit.sh apply" "$m/units/nikkita-charge-limit.service")" 1
+check "asus: the boot service runs root's copy" "$(grep -c "ExecStart=$m/lib/charge-limit.sh apply" "$m/units/nikita-charge-limit.service")" 1
 check "asus: root's copy is there" "$([ -x "$m/lib/charge-limit.sh" ] && echo yes)" yes
 check "asus: status after" "$(run "$m" status)" '{"supported": true, "battery": "BAT0", "limit": 80, "saved": 80}'
 # The laptop forgot it over a restart: the service puts it back.

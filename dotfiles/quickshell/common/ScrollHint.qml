@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/ScrollHint.qml
+// ~/nikita-shell/dotfiles/quickshell/common/ScrollHint.qml
 // Thin scroll indicator for a Flickable/ListView, placed as its sibling. Only
 // visible when there is more content than fits.
 import QtQuick

@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/services/Audio.qml
+// ~/nikita-shell/dotfiles/quickshell/services/Audio.qml
 //
 // Volume of the default output, from PipeWire. Raising it does NOT unmute (two
 // separate actions), and it caps at 100 % (above, it distorts).

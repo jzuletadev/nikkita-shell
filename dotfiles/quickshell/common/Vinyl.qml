@@ -1,4 +1,4 @@
-// ~/nikkita-shell/dotfiles/quickshell/common/Vinyl.qml
+// ~/nikita-shell/dotfiles/quickshell/common/Vinyl.qml
 // A record for NowPlaying, with the cover as its label. It turns while `spinning`
 // and stops where it is.
 import QtQuick
