@@ -18,6 +18,7 @@ Rectangle {
     property string tipSide: ""
     property string text: ""
     property bool active: false
+    property bool carried: false       // a SlideMark behind draws the chosen fill
     property bool toggle: false
     property bool danger: false
     property bool flat: false
@@ -37,12 +38,22 @@ Rectangle {
     signal rightClicked
     signal middleClicked
 
+    // The keyboard: Tab or the arrows bring the focus, Enter and Space press it.
+    activeFocusOnTab: clickable
+    Keys.onPressed: ev => {
+        if (clickable && (ev.key === Qt.Key_Return || ev.key === Qt.Key_Enter || ev.key === Qt.Key_Space)) {
+            b.clicked();
+            ev.accepted = true;
+        }
+    }
+    FocusRing { inner: b.radius }
+
     implicitHeight: 32
     implicitWidth: text !== "" ? row.implicitWidth + 2 * Theme.spaceM : implicitHeight
     radius: height / 2
     color: {
         if (active)
-            return lit ? Theme.activeHover : Theme.accent;
+            return carried ? "transparent" : lit ? Theme.activeHover : Theme.accent;
         if (!lit)
             return restColor;
         if (!danger)
@@ -95,6 +106,7 @@ Rectangle {
             name: b.icon
             size: b.iconSize
             color: b.iconInk
+            Behavior on color { ColorAnimation { duration: Theme.msNormal } }
             anchors.verticalCenter: parent.verticalCenter
         }
         Glyph {
@@ -108,6 +120,7 @@ Rectangle {
             visible: b.text !== ""
             text: b.text
             color: b.ink
+            Behavior on color { ColorAnimation { duration: Theme.msNormal } }
             font.pixelSize: b.textSize
             font.weight: Font.Medium
             anchors.verticalCenter: parent.verticalCenter

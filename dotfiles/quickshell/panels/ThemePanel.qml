@@ -43,6 +43,14 @@ Item {
                     hoverEnabled: true
                     cursorShape: Qt.PointingHandCursor
                     onClicked: themes.apply(modelData.id)
+                    activeFocusOnTab: true
+                    Keys.onPressed: ev => {
+                        if (ev.key === Qt.Key_Return || ev.key === Qt.Key_Enter || ev.key === Qt.Key_Space) {
+                            themes.apply(modelData.id);
+                            ev.accepted = true;
+                        }
+                    }
+                    FocusRing { radius: Theme.radiusM + 3 }
 
                     // The sample uses ITS theme's colors, not the current ones.
                     Rectangle {

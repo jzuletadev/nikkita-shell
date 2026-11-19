@@ -17,8 +17,16 @@ Singleton {
     readonly property real panelOpacity: Math.max(0.6, Math.min(1, store.panelOpacity))
     readonly property bool railPeek: store.railPeek
     readonly property bool clock24h: store.clock24h
+    // The first-start hint (services/SystemNotices.qml) has been shown.
+    readonly property bool introSeen: store.introSeen
+    // Effects (Settings → Appearance): no animation at all, and the desktop clearing
+    // for a moment when the wallpaper changes, so the change is seen whole.
+    readonly property bool reduceMotion: store.reduceMotion
+    readonly property bool peekWallpaper: store.peekWallpaper
     // Panels that don't open on touching their edge, only by key.
     readonly property var manualPanels: store.manualPanels
+    // System notices turned off, by category (services/SystemNotices.qml).
+    readonly property var quietNotices: store.quietNotices
     // Night light (services/NightLight.qml): times are minutes after midnight.
     readonly property bool nightLight: store.nightLight
     readonly property bool nightScheduled: store.nightScheduled
@@ -38,7 +46,7 @@ Singleton {
     }
     // What a setting is before you change it (the JsonAdapter below), for the
     // "back to the default" buttons.
-    readonly property var defaults: ({ panelOpacity: 0.85, nightTemperature: 4000, nightFrom: 1200, nightTo: 420, nightScheduled: true })
+    readonly property var defaults: ({ panelOpacity: 0.92, nightTemperature: 4000, nightFrom: 1200, nightTo: 420, nightScheduled: true })
     function isDefault(key) {
         return JSON.stringify(store[key]) === JSON.stringify(defaults[key]);
     }
@@ -47,6 +55,18 @@ Singleton {
     }
     function opensOnTouch(name) {
         return manualPanels.indexOf(name) < 0;
+    }
+    function noticeShown(category) {
+        return quietNotices.indexOf(category) < 0;
+    }
+    function setNoticeShown(category, on) {
+        const v = [];
+        for (const c of quietNotices)
+            if (c !== category)
+                v.push(c);
+        if (!on)
+            v.push(category);
+        store.quietNotices = v;
     }
     function setOpensOnTouch(name, on) {
         const v = [];
@@ -77,10 +97,14 @@ Singleton {
 
         JsonAdapter {
             id: store
-            property real panelOpacity: 0.85
+            property real panelOpacity: 0.92
             property bool railPeek: true
             property bool clock24h: true
+            property bool introSeen: false
+            property bool reduceMotion: false
+            property bool peekWallpaper: true
             property list<string> manualPanels: []
+            property list<string> quietNotices: []
             property bool nightLight: false
             property bool nightScheduled: true
             property int nightFrom: 1200

@@ -1,6 +1,6 @@
 // ~/nikita-shell/dotfiles/quickshell/settings/AppearancePage.qml
 // In the order you'd set them up: the wallpaper (the one in use, then the gallery);
-// your picture; the theme; the panels' transparency.
+// your picture; the theme; the panels' transparency; the effects.
 import QtQuick
 import QtQuick.Effects
 import Quickshell
@@ -112,8 +112,8 @@ Column {
                 id: avatar
                 x: 16
                 anchors.verticalCenter: parent.verticalCenter
-                width: 72
-                height: 63
+                width: Math.round(height * Theme.hexRatio)
+                height: 64
                 path: Paths.face(Quickshell.env("USER"))
                 name: Quickshell.env("USER")
             }
@@ -177,6 +177,31 @@ Column {
         title: "Theme"
         padding: Theme.spaceL
         ThemePanel { width: parent.width }
+    }
+
+    Section {
+        title: "Effects"
+        note: "Reduce animations also stops the windows' and workspaces' own."
+        SettingRow {
+            icon: "video-display-symbolic"
+            title: "Show the desktop when the wallpaper changes"
+            subtitle: "The windows step aside for a moment, so you see the new picture arrive."
+            ToggleSwitch {
+                anchors.verticalCenter: parent.verticalCenter
+                checked: Prefs.peekWallpaper
+                onToggled: Prefs.set("peekWallpaper", !checked)
+            }
+        }
+        SettingRow {
+            icon: "preferences-system-symbolic"
+            title: "Reduce animations"
+            subtitle: "Panels, windows and lists appear at once, with no movement."
+            ToggleSwitch {
+                anchors.verticalCenter: parent.verticalCenter
+                checked: Prefs.reduceMotion
+                onToggled: HyprSettings.setReduceMotion(!checked)
+            }
+        }
     }
 
     Section {

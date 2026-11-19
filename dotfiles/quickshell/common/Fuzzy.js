@@ -82,6 +82,56 @@ function score(needle, haystack) {
     return Math.max(a, b + prefix);
 }
 
+// How clearly a text holds one typed word: 3 it starts with it, 2 a word in it does
+// (or its initials spell it), 1 it is inside a word, 0 its letters are only scattered.
+// "wifi" also finds "Wi-Fi".
+function gradeWord(word, lower) {
+    let best = 0;
+    for (const t of [lower, lower.replace(/[-_.]/g, "")]) {
+        if (t.startsWith(word))
+            return 3;
+        if (boundaries(t).some(i => t.startsWith(word, i)))
+            best = Math.max(best, 2);
+        else if (t.includes(word))
+            best = Math.max(best, 1);
+    }
+    if (word.length > 1 && acronym(word, lower, lower) !== null)
+        best = Math.max(best, 2);
+    return best;
+}
+
+function grade(needle, text) {
+    const lower = text.toLowerCase();
+    return Math.min(...needle.toLowerCase().trim().split(/\s+/).map(w => gradeWord(w, lower)));
+}
+
+// What the launcher lists for `needle`, best first. `items` have id, name and search
+// (the description); `boost(id)` adds what you use. Scattered letters still find
+// things, for typos, but only when nothing matches better. A description counts
+// from three letters on, or when no name matches at all: two letters are in
+// everything.
+function rank(needle, items, boost) {
+    const hits = [];
+    let bestName = -1, bestSearch = -1;
+    for (const it of items) {
+        const value = fields(needle, [it.name, it.search]);
+        if (value === null)
+            continue;
+        const name = score(needle, it.name) !== null ? grade(needle, it.name) : -1;
+        const search = score(needle, it.search) !== null ? grade(needle, it.search) : -1;
+        hits.push({ it, value: value + boost(it.id), name, search });
+        bestName = Math.max(bestName, name);
+        bestSearch = Math.max(bestSearch, search);
+    }
+    const floor = Math.min(bestName, 2);
+    const anyName = bestName >= 0;
+    const longEnough = needle.trim().length >= 3;
+    return hits.filter(h => (anyName && h.name >= floor)
+                         || (anyName ? longEnough && h.search >= 2 : h.search >= Math.min(bestSearch, 2)))
+        .sort((a, b) => (b.value - a.value) || a.it.name.localeCompare(b.it.name))
+        .map(h => h.it);
+}
+
 function fields(needle, items) {
     let best = null;
     for (let n = 0; n < items.length; n++) {

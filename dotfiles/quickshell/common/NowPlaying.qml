@@ -296,7 +296,7 @@ Item {
                             width: parent.width * track.frac
                             Behavior on width {
                                 enabled: !seekArea.dragging
-                                NumberAnimation { duration: 900 }
+                                NumberAnimation { duration: Theme.ms(900) }
                             }
                         }
                     }
@@ -310,7 +310,7 @@ Item {
                         Behavior on width { NumberAnimation { duration: Theme.msFast } }
                         Behavior on x {
                             enabled: !seekArea.dragging
-                            NumberAnimation { duration: 900 }
+                            NumberAnimation { duration: Theme.ms(900) }
                         }
                     }
                     // Click or drag to seek; it applies when you let go.

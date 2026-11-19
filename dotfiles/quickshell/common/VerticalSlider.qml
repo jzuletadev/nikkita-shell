@@ -39,7 +39,7 @@ Item {
             anchors.bottom: parent.bottom
             height: Math.max(width, parent.height * slider.drawn / 100)
             radius: width / 2
-            color: slider.muted ? Theme.dim : Theme.accent
+            color: slider.muted ? Theme.faint : Theme.accent
             Behavior on color { ColorAnimation { duration: Theme.msNormal } }
         }
 

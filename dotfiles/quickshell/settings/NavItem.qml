@@ -1,5 +1,6 @@
 // ~/nikita-shell/dotfiles/quickshell/settings/NavItem.qml
-// A page in the Settings sidebar. `cursor` is the keyboard's pick while filtering.
+// A page in the Settings sidebar. `cursor` is the keyboard's pick. `iconOnly` (a narrow
+// window) keeps just the icon; `dense` (a short screen) drops the subtitle.
 import QtQuick
 import qs.common
 
@@ -9,25 +10,29 @@ Item {
     required property var page
     property bool selected: false
     property bool cursor: false
+    property bool iconOnly: false
+    property bool dense: false
     signal clicked
 
     width: parent ? parent.width : 0
-    height: 54
+    height: dense || iconOnly ? 44 : 54
 
     Rectangle {
         anchors.fill: parent
         radius: Theme.radiusM
-        color: item.selected ? Theme.alpha(Theme.fg, 0.12) : (area.containsMouse || item.cursor) ? Theme.alpha(Theme.fg, 0.06) : "transparent"
-        border.width: item.cursor && !item.selected ? 1 : 0
-        border.color: Theme.alpha(Theme.fg, 0.4)
+        // The chosen one's fill is the sidebar's sliding mark, not this.
+        color: item.selected ? "transparent" : (area.containsMouse || item.cursor) ? Theme.alpha(Theme.fg, 0.06) : "transparent"
+        // The keyboard's pick wears the same ring as a focused control.
+        border.width: item.cursor ? 2 : 0
+        border.color: Theme.fg
         Behavior on color { ColorAnimation { duration: Theme.msFast } }
     }
 
     Rectangle {
-        x: 11
+        x: item.iconOnly ? (parent.width - width) / 2 : 11
         anchors.verticalCenter: parent.verticalCenter
-        width: 36
-        height: 36
+        width: item.dense || item.iconOnly ? 32 : 36
+        height: width
         radius: width / 2
         // Not inverted on hover: it would look chosen.
         color: item.selected ? Theme.accent : area.containsMouse ? Theme.alpha(Theme.fg, 0.16) : Theme.alpha(Theme.fg, 0.08)
@@ -44,7 +49,8 @@ Item {
     }
 
     Column {
-        x: 58
+        visible: !item.iconOnly
+        x: item.dense ? 52 : 58
         anchors.verticalCenter: parent.verticalCenter
         width: parent.width - x - 10
         spacing: Theme.spaceXxs
@@ -56,6 +62,7 @@ Item {
         }
         StyledText {
             width: parent.width
+            visible: !item.dense
             text: item.page.subtitle
             color: Theme.muted
             font.pixelSize: Theme.textSmall
@@ -68,5 +75,10 @@ Item {
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
         onClicked: item.clicked()
+
+        Tip {
+            text: item.iconOnly ? item.page.title : ""
+            side: "right"
+        }
     }
 }

@@ -20,6 +20,9 @@ EdgePanel {
     // the clock and the calendar take the room.
     readonly property bool playing: Media.hasTrack
     readonly property real cardsWidth: page.width - 2 * Theme.spaceL
+    readonly property real clockWidth: cardsWidth * (playing ? 0.26 : 0.30)
+    // Never so narrow that "Nothing playing" gets cut; the calendar gives way.
+    readonly property real musicWidth: Math.max(playing ? 0 : 156, cardsWidth * (playing ? 0.38 : 0.22))
     readonly property bool watchingPerf: isOpen && tab === 1
     onWatchingPerfChanged: SystemStats.watch(watchingPerf)
     // On config reload the dashboard is destroyed while watching: let go.
@@ -32,22 +35,30 @@ EdgePanel {
     }
 
     // ---- tabs ----
+    SlideMark {
+        host: tabs
+        target: dash.tab === 0 ? tabDashboard : tabPerformance
+    }
     Row {
         id: tabs
         anchors.horizontalCenter: parent.horizontalCenter
         spacing: Theme.spaceS
         PillButton {
+            id: tabDashboard
             text: "Dashboard"
             icon: "view-grid-symbolic"
             height: 28
             active: dash.tab === 0
+            carried: true
             onClicked: dash.tab = 0
         }
         PillButton {
+            id: tabPerformance
             text: "Performance"
             icon: "power-profile-performance-symbolic"
             height: 28
             active: dash.tab === 1
+            carried: true
             onClicked: dash.tab = 1
         }
     }
@@ -70,7 +81,7 @@ EdgePanel {
 
             // --- the clock ---
             Rectangle {
-                width: dash.cardsWidth * (dash.playing ? 0.26 : 0.30)
+                width: dash.clockWidth
                 height: page.height
                 Behavior on width { NumberAnimation { duration: Theme.msNormal; easing.type: Easing.BezierSpline; easing.bezierCurve: Theme.curveSmooth } }
                 radius: Theme.radiusL
@@ -107,7 +118,7 @@ EdgePanel {
 
             // --- the calendar ---
             Rectangle {
-                width: dash.cardsWidth * (dash.playing ? 0.36 : 0.48)
+                width: dash.cardsWidth - dash.clockWidth - dash.musicWidth
                 height: page.height
                 Behavior on width { NumberAnimation { duration: Theme.msNormal; easing.type: Easing.BezierSpline; easing.bezierCurve: Theme.curveSmooth } }
             id: cal
@@ -225,7 +236,7 @@ EdgePanel {
 
             // --- what's playing ---
             NowPlaying {
-                width: dash.cardsWidth * (dash.playing ? 0.38 : 0.22)
+                width: dash.musicWidth
                 height: page.height
                 Behavior on width { NumberAnimation { duration: Theme.msNormal; easing.type: Easing.BezierSpline; easing.bezierCurve: Theme.curveSmooth } }
                 live: dash.isOpen

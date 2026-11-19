@@ -11,3 +11,4 @@ mariadb-clients
 postgresql-libs
 zram-generator
 steam
+zed

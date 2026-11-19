@@ -216,7 +216,7 @@ hl.config({
 
 hl.config({
     animations = {
-        enabled = true,
+        enabled = user.animations ~= false, -- Settings → Appearance → Reduce animations
     },
 })
 

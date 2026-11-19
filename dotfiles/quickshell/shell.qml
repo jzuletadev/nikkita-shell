@@ -14,8 +14,9 @@ import qs.surfaces
 ShellRoot {
     // Singletons are created on first use. These must be alive from startup: the
     // notification server has to claim its bus name, the clipboard history has to
-    // start listening, and the battery has to warn while nothing shows it.
-    readonly property var preload: [Notifs.history, ClipHistory.entries, Battery.pct]
+    // start listening, and the battery and the system notices have to speak while
+    // nothing shows them.
+    readonly property var preload: [Notifs.history, ClipHistory.entries, Battery.pct, SystemNotices.categories]
 
     Variants {
         model: Quickshell.screens

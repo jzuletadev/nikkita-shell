@@ -20,6 +20,22 @@ EdgePanel {
         enabled: center.isOpen
     }
 
+    // A click on a row: the notification's own action while it is alive, else the app
+    // it came from; with neither, the whole text.
+    function activate(row) {
+        const live = Notifs.liveFor(row.modelData);
+        const action = live ? Notifs.defaultAction(live) : null;
+        if (action) {
+            action.invoke();
+            Notifs.removeToast(live);
+            center.close();
+        } else if (Notifs.openApp(row.modelData)) {
+            center.close();
+        } else {
+            row.expanded = !row.expanded;
+        }
+    }
+
     function ago(ms) {
         const s = (clock.date.getTime() - ms) / 1000;
         if (s < 60)
@@ -45,7 +61,15 @@ EdgePanel {
                 spacing: Theme.spaceS
                 Icon { name: "preferences-system-notifications-symbolic"; size: 15; color: Theme.accent; anchors.verticalCenter: parent.verticalCenter }
                 StyledText { text: "Notifications"; font.weight: Font.DemiBold }
-                StyledText { text: Notifs.history.length; color: Theme.dim; font.pixelSize: Theme.textSmall }
+                HexShape {
+                    visible: Notifs.history.length > 0
+                    anchors.verticalCenter: parent.verticalCenter
+                    height: 20
+                    width: Math.max(Math.round(height * Theme.hexRatio), labelWidth + Theme.spaceS)
+                    fill: Theme.control
+                    label: Notifs.history.length
+                    labelColor: Theme.muted
+                }
                 // Said in words too: the button alone is easy to miss when the
                 // panel only peeks (SUPER + N).
                 StyledText {
@@ -73,8 +97,12 @@ EdgePanel {
                     flat: true
                     icon: "user-trash-symbolic"
                     iconSize: 14
-                    visible: Notifs.history.length > 0
-                    tip: "Clear all"
+                    danger: true
+                    // It keeps its place: Do not disturb, next to it, mustn't slide under
+                    // the pointer that just cleared the list.
+                    interactive: Notifs.history.length > 0
+                    opacity: interactive ? 1 : 0
+                    tip: interactive ? "Clear all" : ""
                     onClicked: Notifs.clear()
                 }
             }
@@ -93,16 +121,36 @@ EdgePanel {
                 boundsBehavior: Flickable.StopAtBounds
                 model: Notifs.history
 
-                StyledText {
+                Column {
                     anchors.centerIn: parent
                     visible: listView.count === 0
-                    text: ShellState.doNotDisturb ? "Do not disturb is on" : "All caught up"
-                    color: Theme.dim
+                    spacing: Theme.spaceS
+                    Logo {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        mark: "rocket"
+                        size: 44
+                        color: Theme.faint
+                    }
+                    StyledText {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: Notifs.undoable !== null ? "History cleared" : ShellState.doNotDisturb ? "Do not disturb is on" : "All caught up"
+                        color: Theme.dim
+                    }
+                    PillButton {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        visible: Notifs.undoable !== null
+                        height: 28
+                        text: "Undo"
+                        onClicked: Notifs.undo()
+                    }
                 }
 
                 delegate: Rectangle {
                     id: row
                     required property var modelData
+                    property bool expanded: false
+                    readonly property var live: Notifs.liveFor(modelData)
+                    readonly property var liveActions: live ? live.actions.filter(a => a.identifier !== "default") : []
                     width: listView.width
                     height: col.implicitHeight + 16
                     radius: Theme.radiusM
@@ -115,13 +163,16 @@ EdgePanel {
                         id: area
                         anchors.fill: parent
                         hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: center.activate(row)
                     }
 
                     AppIcon {
                         id: ico
                         x: 10
                         y: 9
-                        name: row.modelData.image || row.modelData.icon
+                        name: row.modelData.image || row.modelData.icon || (Notifs.appFor(row.modelData)?.icon ?? "")
+                        initial: row.modelData.app || row.modelData.summary
                         size: 22
                     }
                     Column {
@@ -154,7 +205,26 @@ EdgePanel {
                             color: Theme.muted
                             font.pixelSize: Theme.textSmall
                             wrapMode: Text.Wrap
-                            maximumLineCount: 2
+                            maximumLineCount: row.expanded ? 12 : 2
+                        }
+                        Flow {
+                            width: parent.width
+                            visible: row.liveActions.length > 0
+                            spacing: Theme.spaceXs
+                            topPadding: Theme.spaceXs
+                            Repeater {
+                                model: row.liveActions
+                                PillButton {
+                                    required property var modelData
+                                    text: modelData.text
+                                    height: 26
+                                    onClicked: {
+                                        const n = row.live;   // invoking can destroy it
+                                        modelData.invoke();
+                                        Notifs.removeToast(n);
+                                    }
+                                }
+                            }
                         }
                     }
                     PillButton {

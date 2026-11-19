@@ -7,15 +7,26 @@ import qs.common
 QtObject {
     property real screenWidth: 1920
     property real screenHeight: 1080
+    // A fullscreen window on this monitor: the edges stop opening panels, or a game
+    // would open them by accident. Keys still do.
+    property bool edgesOff: false
+
+    // The text doesn't scale, so a share of the screen needs limits: below them the
+    // content stops fitting, above them a panel is mostly air (an ultrawide, 4K at
+    // scale 1).
+    function share(size, part, least, most) {
+        return Math.round(Math.max(least, Math.min(most, size * part)));
+    }
 
     // How far a rail reaches into the screen.
-    readonly property int rail: Math.round(screenWidth * 0.030)
-    readonly property int corner: Math.round(screenWidth * 0.195)
-    readonly property int cornerHeight: Math.round(screenHeight * 0.215)
-    readonly property int centerWidth: Math.round(screenWidth * 0.46)
+    readonly property int rail: share(screenWidth, 0.030, 40, 60)
+    readonly property int corner: share(screenWidth, 0.195, 340, 460)
+    // The corners that hold a list. Power and Quick actions are as tall as their content.
+    readonly property int cornerHeight: share(screenHeight, 0.215, 220, 340)
+    readonly property int centerWidth: share(screenWidth, 0.46, 600, 1000)
     // The tray's minimum: it grows with its icons.
-    readonly property int trayWidth: Math.round(screenWidth * 0.07)
-    readonly property int dock: Math.round(screenHeight * 0.27)
+    readonly property int trayWidth: share(screenWidth, 0.07, 90, 180)
+    readonly property int dock: share(screenHeight, 0.27, 200, 340)
     // The launcher's field: its width and where it is born.
     readonly property int searchWidth: Math.round(Math.min(corner * 1.12, screenHeight * 0.62)) + 40
     // A little below the middle, but never so low that seven rows below the 52 px

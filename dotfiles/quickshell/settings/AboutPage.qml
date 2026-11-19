@@ -1,5 +1,5 @@
 // ~/nikita-shell/dotfiles/quickshell/settings/AboutPage.qml
-// This desktop and this computer, from `system-stats.py --machine`. The Arch logo
+// This desktop and this computer, from `system-stats.py --machine`. The logo
 // on the workspace rail opens this page.
 import QtQuick
 import Quickshell

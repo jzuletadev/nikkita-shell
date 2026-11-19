@@ -18,8 +18,13 @@ Item {
     property string current: ""
 
     function apply(file) {
-        // wallpaper.sh reports its own failures.
-        Commands.run([Paths.script("wallpaper.sh"), "set", file], null);
+        // wallpaper.sh reports its own failures. With "peek" it clears the desktop
+        // for the change and brings everything back, Settings included: this window
+        // is only parked, so it must not close meanwhile.
+        const how = Prefs.reduceMotion ? "calm" : Prefs.peekWallpaper ? "peek" : "";
+        ShellState.settingsWaiting = how === "peek";
+        Commands.run([Paths.script("wallpaper.sh"), "set", file].concat(how === "" ? [] : [how]), null,
+            () => ShellState.settingsWaiting = false);
         current = file;
     }
 
@@ -51,6 +56,17 @@ Item {
         boundsBehavior: Flickable.StopAtBounds
         model: files
 
+        // The keyboard: Tab brings the focus in, the arrows pick a picture (at the
+        // edge they go on to the next control), Enter and Space apply it.
+        activeFocusOnTab: true
+        keyNavigationEnabled: true
+        Keys.onPressed: ev => {
+            if ((ev.key === Qt.Key_Return || ev.key === Qt.Key_Enter || ev.key === Qt.Key_Space) && grid.currentItem) {
+                wallpapers.apply(files.get(grid.currentIndex, "filePath"));
+                ev.accepted = true;
+            }
+        }
+
         delegate: Item {
             id: cell
             required property string filePath
@@ -80,6 +96,12 @@ Item {
                     asynchronous: true
                     cache: false
                 }
+            }
+            FocusRing {
+                target: grid
+                visible: grid.activeFocus && cell.GridView.isCurrentItem
+                anchors.margins: -1
+                radius: Theme.radiusM + 3
             }
             MouseArea {
                 id: zone

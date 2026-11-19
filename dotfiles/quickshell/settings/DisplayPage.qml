@@ -285,6 +285,15 @@ Column {
                     border.width: 1
                     border.color: chosen ? Theme.accent : Theme.divider
                     z: boxArea.drag.active ? 2 : 1
+                    // Space or Enter picks a monitor, as a click does (moving one is the pointer's).
+                    activeFocusOnTab: true
+                    Keys.onPressed: ev => {
+                        if (ev.key === Qt.Key_Return || ev.key === Qt.Key_Enter || ev.key === Qt.Key_Space) {
+                            page.selected = screenBox.modelData.i;
+                            ev.accepted = true;
+                        }
+                    }
+                    FocusRing { radius: Theme.radiusS + 3 }
 
                     Column {
                         anchors.centerIn: parent

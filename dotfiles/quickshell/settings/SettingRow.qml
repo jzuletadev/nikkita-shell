@@ -1,5 +1,6 @@
 // ~/nikita-shell/dotfiles/quickshell/settings/SettingRow.qml
-// One setting inside a Section; its control goes on the right.
+// One setting inside a Section; its control goes on the right, or under the text
+// when the window is too narrow for both (tiled beside another).
 import QtQuick
 import qs.common
 
@@ -16,11 +17,22 @@ Item {
     default property alias control: side.data
     readonly property bool hovering: area.containsMouse
     readonly property bool hasIcon: icon !== "" || appIcon !== "" || glyph > 0
+    // Room for the text, at least, beside the control.
+    readonly property bool stacked: side.width > 0 && width < (hasIcon ? 54 : 18) + 150 + side.width + 34
 
     signal clicked
 
+    activeFocusOnTab: clickable
+    Keys.onPressed: ev => {
+        if (clickable && (ev.key === Qt.Key_Return || ev.key === Qt.Key_Enter || ev.key === Qt.Key_Space)) {
+            row.clicked();
+            ev.accepted = true;
+        }
+    }
+    FocusRing { gap: -2; radius: Theme.radiusM }
+
     width: parent ? parent.width : 0
-    implicitHeight: Math.max(56, texts.implicitHeight + 24)
+    implicitHeight: stacked ? texts.implicitHeight + side.height + 36 : Math.max(56, texts.implicitHeight + 24)
 
     Rectangle {
         anchors.fill: parent
@@ -70,8 +82,9 @@ Item {
     Column {
         id: texts
         x: row.hasIcon ? 54 : 18
-        anchors.verticalCenter: parent.verticalCenter
-        width: parent.width - x - side.width - 34
+        y: 12
+        anchors.verticalCenter: row.stacked ? undefined : parent.verticalCenter
+        width: row.stacked ? parent.width - x - Theme.spaceL : parent.width - x - side.width - 34
         spacing: Theme.spaceXxs
         StyledText {
             width: parent.width
@@ -94,7 +107,9 @@ Item {
         id: side
         anchors.right: parent.right
         anchors.rightMargin: Theme.spaceL
-        anchors.verticalCenter: parent.verticalCenter
+        anchors.verticalCenter: row.stacked ? undefined : parent.verticalCenter
+        anchors.bottom: row.stacked ? parent.bottom : undefined
+        anchors.bottomMargin: Theme.spaceM
         spacing: Theme.spaceM
     }
 }

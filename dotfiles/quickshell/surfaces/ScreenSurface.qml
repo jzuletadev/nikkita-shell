@@ -2,6 +2,7 @@
 
 import QtQuick
 import Quickshell
+import Quickshell.Hyprland
 import Quickshell.Wayland
 import qs.common
 import qs.services
@@ -13,6 +14,7 @@ PanelWindow {
     screen: modelData
     // The screen can go before this surface does (a monitor unplugged).
     readonly property string screenName: modelData ? modelData.name : ""
+    readonly property var monitor: Hyprland.monitors.values.find(m => m.name === screenName) ?? null
 
     anchors {
         top: true
@@ -31,6 +33,11 @@ PanelWindow {
         id: m
         screenWidth: win.width
         screenHeight: win.height
+        // Really fullscreen: a maximized window (Hyprland counts it too) leaves the gaps.
+        edgesOff: {
+            const w = win.monitor?.activeWorkspace;
+            return !!w && w.hasFullscreen && w.toplevels.values.some(t => t.wayland?.fullscreen);
+        }
     }
 
     IdleInhibitor {

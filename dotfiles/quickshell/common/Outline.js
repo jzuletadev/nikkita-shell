@@ -25,41 +25,77 @@ function cornerType(cx, cy, W, H) {
     return "r";
 }
 
-function outline(x0, y0, w, h, W, H, r, n) {
-    if (w <= 0.5 || h <= 0.5)
-        return "M 0 0";
+// The four corners, clockwise from the top right. Each says where the outline
+// comes in (`x`, `y`) and, if it curves, the arc that takes it out.
+function corners(x0, y0, w, h, W, H, r, n) {
     const x1 = x0 + w, y1 = y0 + h;
     r = Math.max(0, Math.min(r, w / 2, h / 2));
     n = Math.max(0, n);
-    const p = [];
-    const L = (x, y) => p.push(`L ${x} ${y}`);
-    const A = (rad, sweep, x, y) => p.push(`A ${rad} ${rad} 0 0 ${sweep} ${x} ${y}`);
+    const at = (x, y, rad, sweep, ex, ey) => ({ x, y, arc: rad === undefined ? "" : `A ${rad} ${rad} 0 0 ${sweep} ${ex} ${ey}` });
+    const pick = (cx, cy, s, rr, nv, nh) => ({ s, r: rr, nv, nh })[cornerType(cx, cy, W, H)];
+    return [
+        pick(x1, y0, at(x1, y0),
+             at(x1 - r, y0, r, 1, x1, y0 + r), at(x1 - n, y0, n, 0, x1, y0 - n), at(x1 + n, y0, n, 0, x1, y0 + n)),
+        pick(x1, y1, at(x1, y1),
+             at(x1, y1 - r, r, 1, x1 - r, y1), at(x1, y1 + n, n, 0, x1 - n, y1), at(x1, y1 - n, n, 0, x1 + n, y1)),
+        pick(x0, y1, at(x0, y1),
+             at(x0 + r, y1, r, 1, x0, y1 - r), at(x0 + n, y1, n, 0, x0, y1 + n), at(x0 - n, y1, n, 0, x0, y1 - n)),
+        pick(x0, y0, at(x0, y0),
+             at(x0, y0 + r, r, 1, x0 + r, y0), at(x0, y0 - n, n, 0, x0 + n, y0), at(x0, y0 + n, n, 0, x0 - n, y0))
+    ];
+}
 
-    p.push(`M ${(x0 + x1) / 2} ${y0}`);
-    switch (cornerType(x1, y0, W, H)) {
-    case "s": L(x1, y0); break;
-    case "r": L(x1 - r, y0); A(r, 1, x1, y0 + r); break;
-    case "nv": L(x1 - n, y0); A(n, 0, x1, y0 - n); break;
-    case "nh": L(x1 + n, y0); A(n, 0, x1, y0 + n); break;
-    }
-    switch (cornerType(x1, y1, W, H)) {
-    case "s": L(x1, y1); break;
-    case "r": L(x1, y1 - r); A(r, 1, x1 - r, y1); break;
-    case "nv": L(x1, y1 + n); A(n, 0, x1 - n, y1); break;
-    case "nh": L(x1, y1 - n); A(n, 0, x1 + n, y1); break;
-    }
-    switch (cornerType(x0, y1, W, H)) {
-    case "s": L(x0, y1); break;
-    case "r": L(x0 + r, y1); A(r, 1, x0, y1 - r); break;
-    case "nv": L(x0 + n, y1); A(n, 0, x0, y1 + n); break;
-    case "nh": L(x0 - n, y1); A(n, 0, x0, y1 - n); break;
-    }
-    switch (cornerType(x0, y0, W, H)) {
-    case "s": L(x0, y0); break;
-    case "r": L(x0, y0 + r); A(r, 1, x0 + r, y0); break;
-    case "nv": L(x0, y0 - n); A(n, 0, x0 + n, y0); break;
-    case "nh": L(x0, y0 + n); A(n, 0, x0 - n, y0); break;
+function outline(x0, y0, w, h, W, H, r, n) {
+    if (w <= 0.5 || h <= 0.5)
+        return "M 0 0";
+    const p = [`M ${x0 + w / 2} ${y0}`];
+    for (const c of corners(x0, y0, w, h, W, H, r, n)) {
+        p.push(`L ${c.x} ${c.y}`);
+        if (c.arc)
+            p.push(c.arc);
     }
     p.push("Z");
+    return p.join(" ");
+}
+
+// Where the arc of a corner ends.
+function arcEnd(c) {
+    if (!c.arc)
+        return [c.x, c.y];
+    const f = c.arc.split(" ");
+    return [Number(f[6]), Number(f[7])];
+}
+
+// The same outline without the stretches that lie along a screen edge: what a panel's
+// rim and shadow follow. Stroking those would draw a line down the edge of the screen.
+function rim(x0, y0, w, h, W, H, r, n) {
+    if (w <= 0.5 || h <= 0.5)
+        return "M 0 0";
+    const c = corners(x0, y0, w, h, W, H, r, n);
+    const onEdge = (a, b) => (Math.abs(a[1] - b[1]) < 0.5 && (a[1] <= 0.5 || a[1] >= H - 0.5))
+        || (Math.abs(a[0] - b[0]) < 0.5 && (a[0] <= 0.5 || a[0] >= W - 0.5));
+    // The side leaving corner i, toward the next one.
+    const skipped = i => onEdge(arcEnd(c[i]), [c[(i + 1) % 4].x, c[(i + 1) % 4].y]);
+    // A screen corner between two such stretches: nothing of it shows.
+    const hidden = i => !c[i].arc && skipped(i) && skipped((i + 3) % 4);
+    // Start right after a skipped side, so the line is never broken in two needlessly.
+    let first = 0;
+    for (let i = 0; i < 4; i++) {
+        if (skipped((i + 3) % 4) && !hidden(i)) {
+            first = i;
+            break;
+        }
+    }
+    const p = [];
+    for (let k = 0; k < 4; k++) {
+        const i = (first + k) % 4;
+        if (hidden(i))
+            continue;
+        p.push(`${p.length === 0 || skipped((i + 3) % 4) ? "M" : "L"} ${c[i].x} ${c[i].y}`);
+        if (c[i].arc)
+            p.push(c[i].arc);
+    }
+    if (!skipped((first + 3) % 4))
+        p.push("Z");
     return p.join(" ");
 }

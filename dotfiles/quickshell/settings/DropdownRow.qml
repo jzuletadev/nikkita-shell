@@ -26,7 +26,17 @@ Column {
 
     width: parent ? parent.width : 0
 
+    // Escape folds the choices and keeps the focus on the row, not on a choice that is gone.
+    Keys.onEscapePressed: ev => {
+        if (open) {
+            open = false;
+            header.forceActiveFocus();
+            ev.accepted = true;
+        }
+    }
+
     SettingRow {
+        id: header
         divider: drop.Positioner.index > 0
         icon: drop.icon
         title: drop.title

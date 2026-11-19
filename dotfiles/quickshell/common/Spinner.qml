@@ -1,5 +1,5 @@
 // ~/nikita-shell/dotfiles/quickshell/common/Spinner.qml
-// An arc that turns while visible (connecting...).
+// An open hexagon that turns while visible (connecting...).
 import QtQuick
 import QtQuick.Shapes
 import qs.common
@@ -22,13 +22,17 @@ Item {
             strokeWidth: Math.max(1.5, spinner.size / 8)
             fillColor: "transparent"
             capStyle: ShapePath.RoundCap
-            PathAngleArc {
-                centerX: spinner.size / 2
-                centerY: spinner.size / 2
-                radiusX: spinner.size / 2 - 1.5
-                radiusY: spinner.size / 2 - 1.5
-                startAngle: 0
-                sweepAngle: 270
+            joinStyle: ShapePath.RoundJoin
+            // Five of the six sides.
+            PathSvg {
+                path: {
+                    const c = spinner.size / 2, r = c - 1.5, p = [];
+                    for (let i = 0; i < 6; i++) {
+                        const a = (i * 60 - 90) * Math.PI / 180;
+                        p.push((i === 0 ? "M " : "L ") + (c + r * Math.cos(a)).toFixed(2) + " " + (c + r * Math.sin(a)).toFixed(2));
+                    }
+                    return p.join(" ");
+                }
             }
         }
 

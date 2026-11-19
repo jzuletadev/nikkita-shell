@@ -14,7 +14,7 @@ EdgePanel {
     edge: "bottom"
     placement: "end"
     span: m.corner
-    depth: m.cornerHeight
+    depth: content.implicitHeight + 2 * inset
 
     property bool satty: false
     property bool withAudio: false
@@ -23,7 +23,7 @@ EdgePanel {
     // neither in the picture nor under slurp's crosshair. Meanwhile it can't reopen
     // (that would cancel the leaving, and the capture with it).
     property var afterClose: null
-    hoverable: touchable && Prefs.opensOnTouch(name) && afterClose === null
+    hoverable: touchable && Prefs.opensOnTouch(name) && !m.edgesOff && afterClose === null
     function closeThen(f) {
         afterClose = f;
         qa.close();
@@ -83,6 +83,7 @@ EdgePanel {
     }
 
     Column {
+        id: content
         anchors.fill: parent
         spacing: Theme.spaceM
 

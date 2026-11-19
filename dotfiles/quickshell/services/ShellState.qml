@@ -37,7 +37,7 @@ Singleton {
     onCapturingKeysChanged: Hyprland.dispatch(capturingKeys ? 'hl.dsp.submap("nikita-capture")' : 'hl.dsp.submap("reset")')
     // A shell that went away while capturing left Hyprland without its shortcuts.
     Component.onCompleted: Hyprland.dispatch('hl.dsp.submap("reset")')
-    property string settingsPage: "appearance"
+    property string settingsPage: "network"
     property bool musicOpen: false
 
     // Peek a panel for a while: `who` is its name or "*" for all, `where` the
@@ -200,8 +200,8 @@ Singleton {
             else
                 Recorder.start(how === "region", how === "audio");
         }
-        // settings [page]: appearance panels network bluetooth sound display power
-        // datetime notifications keyboard shortcuts pointer apps about ("" = the last one)
+        // settings [page]: network bluetooth sound display power appearance panels
+        // notifications keyboard shortcuts pointer datetime apps about ("" = the last one)
         function settings(page: string): void {
             shellState.toggleSettings(page);
         }

@@ -34,16 +34,23 @@ Singleton {
     // Everything else is a mix of bg and fg, so it animates along with them.
     readonly property color surface: mix(bg, fg, 0.06)
     readonly property color overlay: mix(bg, fg, 0.14)
-    readonly property color muted: mix(fg, bg, 0.40)
-    readonly property color dim: mix(fg, bg, 0.62)
+    // Text: `muted` for secondary lines, `dim` for notes and hints. Both pass 4.5:1 on
+    // `bg` and on `card`, in both themes. The light one needs less of `bg`: mid grays
+    // read fainter on a light ground.
+    readonly property color muted: mix(fg, bg, dark ? 0.28 : 0.24)
+    readonly property color dim: mix(fg, bg, dark ? 0.44 : 0.34)
+    // Never for text: scroll bars, a muted slider, an empty workspace's dot.
+    readonly property color faint: mix(fg, bg, 0.62)
     readonly property color accent: fg          // no color: highlighted things use the text tone
     readonly property color accentText: bg
     readonly property color info: muted
 
     // ---- derived ----
     readonly property color panel: alpha(bg, Prefs.panelOpacity)   // Settings → Appearance
-    readonly property color card: mix(bg, fg, 0.07)          // cards inside a panel
-    readonly property color cardHover: mix(bg, fg, 0.13)      // hover over a card
+    // Translucent, like `control`: a step above whatever is under them. Opaque, a card
+    // vanished on a panel lit from behind by a bright window.
+    readonly property color card: alpha(fg, 0.07)            // cards inside a panel
+    readonly property color cardHover: alpha(fg, 0.13)       // hover over a card
     // A button at rest: translucent, so it is one step above whatever it sits on
     // (a panel or a card). An opaque `card` vanished on a card.
     readonly property color control: alpha(fg, 0.08)
@@ -52,6 +59,10 @@ Singleton {
     // The edge of what floats over a picture (the lock card, your picture's frame):
     // the opposite tone, stronger in the light theme, where a wallpaper turns gray.
     readonly property color rim: alpha(fg, dark ? 0.28 : 0.42)
+    // A panel's edge and the shadow around it (EdgePanel): what keeps a panel apart
+    // from a window or wallpaper of its own tone. The shadow is laid down in passes.
+    readonly property color panelRim: alpha(fg, dark ? 0.13 : 0.17)
+    readonly property color panelShadow: Qt.rgba(0, 0, 0, dark ? 0.034 : 0.022)
 
     // ---- states (the same everywhere) ----
     // Filled with the text tone (`accent`) means ON: a toggle that is on, the chosen
@@ -102,16 +113,26 @@ Singleton {
     readonly property int radiusL: 16        // cards and panels
     readonly property int radiusXl: 24       // dialogs and the big cards
 
+    // ---- the hexagon: it stands on a point, as in the logo ----
+    readonly property real hexRatio: 0.905   // its width / height in the logo
+
     // ---- motion ----
     // Material 3 "expressive": the enter curve overshoots a little.
     readonly property var curveEnter: [0.38, 1.21, 0.22, 1.0, 1, 1]
     readonly property var curveExit: [0.3, 0.0, 0.8, 0.15, 1, 1]
     readonly property var curveSmooth: [0.2, 0.0, 0.0, 1.0, 1, 1]
     // Choreographies (the launcher opening, the lock's shake, gauges filling) keep
-    // their own timings; every plain transition uses one of these.
-    readonly property int msFast: 150        // feedback: hover, press, a color
-    readonly property int msNormal: 250      // fades, moves, sizes; a panel leaving
-    readonly property int msSlow: 480        // a panel arriving, the theme crossfade
+    // their own timings, through ms(); every plain transition uses one of these.
+    // Endless loops (a spinner) stay out of ms(): at 0 they would spin every frame.
+    // Every animation's length, in one place; Settings → Appearance → Reduce animations
+    // makes it 0 (everything lands at once).
+    readonly property real motionScale: Prefs.reduceMotion ? 0 : 1
+    function ms(duration) {
+        return Math.round(duration * motionScale);
+    }
+    readonly property int msFast: ms(150)    // feedback: hover, press, a color
+    readonly property int msNormal: ms(250)  // fades, moves, sizes; a panel leaving
+    readonly property int msSlow: ms(480)    // a panel arriving, the theme crossfade
 
     function alpha(c, a) {
         return Qt.rgba(c.r, c.g, c.b, a);

@@ -89,7 +89,7 @@ Column {
                 radius: height / 2
                 width: parent.width * Battery.pct / 100
                 color: Battery.level
-                Behavior on width { NumberAnimation { duration: 600; easing.type: Easing.OutCubic } }
+                Behavior on width { NumberAnimation { duration: Theme.ms(600); easing.type: Easing.OutCubic } }
             }
         }
     }
@@ -124,11 +124,13 @@ Column {
         note: PowerModes.limited !== "" ? "Limited right now: " + PowerModes.limited : "Also in the top-left corner."
         padding: Theme.spaceM
 
-        Row {
+        // Side by side; one under another where the window is narrow.
+        Flow {
             id: modes
             width: parent.width
             spacing: Theme.spaceM
             readonly property var options: PowerModes.list
+            readonly property int columns: width < 480 ? 1 : options.length
 
             Repeater {
                 model: modes.options
@@ -137,10 +139,18 @@ Column {
                     id: mode
                     required property var modelData
                     readonly property bool on: PowerProfiles.profile === modelData.profile
-                    width: (modes.width - modes.spacing * (modes.options.length - 1)) / modes.options.length
-                    height: 92
+                    width: (modes.width - modes.spacing * (modes.columns - 1)) / modes.columns
+                    height: modes.columns === 1 ? 76 : 92
                     radius: Theme.radiusM
                     color: on ? (modeArea.containsMouse ? Theme.activeHover : Theme.accent) : modeArea.containsMouse ? Theme.hoverFill : Theme.alpha(Theme.fg, 0.04)
+                    activeFocusOnTab: true
+                    Keys.onPressed: ev => {
+                        if (ev.key === Qt.Key_Return || ev.key === Qt.Key_Enter || ev.key === Qt.Key_Space) {
+                            PowerProfiles.profile = mode.modelData.profile;
+                            ev.accepted = true;
+                        }
+                    }
+                    FocusRing {}
                     Behavior on color { ColorAnimation { duration: Theme.msFast } }
 
                     // The hover ring (Theme's state rule).

@@ -12,7 +12,7 @@ Rectangle {
     x: view.x + view.width + 3
     width: 3
     radius: width / 2
-    color: Theme.dim
+    color: Theme.faint
     visible: view.visibleArea.heightRatio < 0.999
     opacity: view.moving ? 0.9 : 0.4
     y: view.y + view.visibleArea.yPosition * view.height

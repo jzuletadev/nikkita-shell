@@ -149,6 +149,11 @@ Singleton {
         Prefs.set("hyprInput", m);
         apply.restart();
     }
+    // "Reduce animations": Hyprland's windows and workspaces stop animating too.
+    function setReduceMotion(on) {
+        Prefs.set("reduceMotion", on);
+        apply.restart();
+    }
     function setInput(name, value) {
         const m = Object.assign({}, Prefs.hyprInput);
         if (value === undefined)
@@ -263,6 +268,8 @@ Singleton {
         const speed = Prefs.hyprInput["touchpad.speed"];
         if (speed !== undefined && touchpads.length > 0)
             out.push("    devices = { " + touchpads.map(n => "{ name = " + quote(n) + ", sensitivity = " + literal("float", speed) + " }").join(", ") + " },");
+        if (Prefs.reduceMotion)
+            out.push("    animations = false,");
         // shortcuts
         const keys = Object.keys(Prefs.shortcutKeys).filter(id => /^[a-z0-9-]+$/.test(id) && typeof Prefs.shortcutKeys[id] === "string");
         if (keys.length > 0)

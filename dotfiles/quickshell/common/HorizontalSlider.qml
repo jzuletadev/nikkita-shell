@@ -13,6 +13,23 @@ Item {
 
     implicitHeight: 20
 
+    // The keyboard: Left and Right move it by 5, Home and End go to the ends.
+    // Up and Down are left to the page, to move on to the next control.
+    activeFocusOnTab: true
+    Keys.onPressed: ev => {
+        const step = ev.key === Qt.Key_Left ? -5 : ev.key === Qt.Key_Right ? 5 : 0;
+        if (step !== 0)
+            d.moved(Math.max(0, Math.min(100, d.value + step)));
+        else if (ev.key === Qt.Key_Home)
+            d.moved(0);
+        else if (ev.key === Qt.Key_End)
+            d.moved(100);
+        else
+            return;
+        ev.accepted = true;
+    }
+    FocusRing { radius: Theme.radiusS }
+
     property real drawn: value
     Behavior on drawn {
         enabled: !zone.pressed
@@ -29,7 +46,7 @@ Item {
             height: parent.height
             radius: height / 2
             width: parent.width * d.drawn / 100
-            color: d.muted ? Theme.dim : Theme.accent
+            color: d.muted ? Theme.faint : Theme.accent
         }
     }
     Rectangle {

@@ -20,6 +20,7 @@ EdgePanel {
     span: Math.max(column.implicitHeight, wide > 0 ? windowList.height : 0) + 2 * inset
     inset: 12
     pinned: holding
+    shadowed: wide === 0
 
     Behavior on span {
         NumberAnimation { duration: Theme.msNormal; easing.type: Easing.BezierSpline; easing.bezierCurve: Theme.curveSmooth }
@@ -93,16 +94,16 @@ EdgePanel {
     // The rail comes in as always, then stretches with a little spring.
     SequentialAnimation {
         id: extend
-        PauseAnimation { duration: 110 }
+        PauseAnimation { duration: Theme.ms(110) }
         ParallelAnimation {
-            NumberAnimation { target: rail; property: "wide"; to: 1; duration: 420; easing.type: Easing.OutBack; easing.overshoot: 1.3 }
+            NumberAnimation { target: rail; property: "wide"; to: 1; duration: Theme.ms(420); easing.type: Easing.OutBack; easing.overshoot: 1.3 }
             NumberAnimation { target: rail; property: "rowsIn"; to: 1; duration: rail.cascadeMs }
         }
     }
     ParallelAnimation {
         id: shrink
-        NumberAnimation { target: rail; property: "rowsIn"; to: 0; duration: 90 }
-        NumberAnimation { target: rail; property: "wide"; to: 0; duration: 240; easing.type: Easing.InCubic }
+        NumberAnimation { target: rail; property: "rowsIn"; to: 0; duration: Theme.ms(90) }
+        NumberAnimation { target: rail; property: "wide"; to: 0; duration: Theme.ms(240); easing.type: Easing.InCubic }
         onFinished: {
             rail.holding = false;
             WindowSwitch.settle();
@@ -172,7 +173,7 @@ EdgePanel {
                     // While switching, the workspace of the window you would pick.
                     readonly property bool isActive: modelData.id === (rail.holding && WindowSwitch.chosenWorkspace > 0 ? WindowSwitch.chosenWorkspace : rail.shownId)
                     readonly property bool hasWindows: modelData.toplevels.values.length > 0
-                    // 0 = the dot, 1 = the shape (it overshoots: the bounce).
+                    // 0 = the small hexagon, 1 = the big one (it overshoots: the bounce).
                     property real morph: isActive ? 1 : 0
                     Behavior on morph {
                         NumberAnimation {
@@ -189,8 +190,8 @@ EdgePanel {
                     SequentialAnimation {
                         id: popAnim
                         PropertyAction { target: cell; property: "pop"; value: 0.35 }
-                        PauseAnimation { duration: 120 }
-                        NumberAnimation { target: cell; property: "pop"; to: 1; duration: 520; easing.type: Easing.OutBack; easing.overshoot: 2.6 }
+                        PauseAnimation { duration: Theme.ms(120) }
+                        NumberAnimation { target: cell; property: "pop"; to: 1; duration: Theme.ms(520); easing.type: Easing.OutBack; easing.overshoot: 2.6 }
                     }
 
                     width: 20
@@ -200,25 +201,26 @@ EdgePanel {
                     cursorShape: Qt.PointingHandCursor
                     onClicked: rail.goTo(modelData.id)
 
-                    Rectangle {
+                    // Solid if it has windows, hollow if it is empty.
+                    HexShape {
                         anchors.centerIn: parent
-                        width: 7
-                        height: 7
-                        radius: width / 2
+                        height: 10
+                        width: Math.round(height * Theme.hexRatio)
                         scale: Math.max(0, 1 - cell.morph) * (cell.containsMouse ? 1.3 : 1)
-                        color: cell.hasWindows ? Theme.muted : Theme.dim
-                        opacity: cell.hasWindows ? 1 : 0.55
-                        Behavior on color { ColorAnimation { duration: Theme.msNormal } }
+                        fill: cell.hasWindows ? Theme.muted : "transparent"
+                        stroke: cell.hasWindows ? "transparent" : Theme.faint
+                        strokeWidth: cell.hasWindows ? 0 : 1.2
                     }
 
-                    ShapeMark {
+                    // Where you are: filled, as everything chosen.
+                    HexShape {
                         anchors.centerIn: parent
-                        size: 17
-                        stroke: 1.6
-                        index: cell.modelData.id - 1
+                        height: 16
+                        width: Math.round(height * Theme.hexRatio)
+                        fill: Theme.accent
                         visible: cell.morph > 0.01
                         scale: cell.morph * cell.pop
-                        rotation: (1 - cell.morph * cell.pop) * -90
+                        rotation: (1 - cell.morph * cell.pop) * -60
                         opacity: Math.min(1, cell.morph * 2)
                     }
                 }

@@ -5,6 +5,9 @@
 // Saved in ~/.local/state/nikita-shell/clipboard.json.
 pragma Singleton
 
+// Pinned texts stay on top and survive "Clear the history". The file holds entries and
+// pinned (an older one is just the entries).
+
 import QtQuick
 import Quickshell
 import Quickshell.Io
@@ -14,12 +17,15 @@ Singleton {
     id: clip
 
     property var entries: []
+    property var pinned: []
+    // What the panel and the launcher list: the pinned first.
+    readonly property var shown: pinned.concat(entries)
     readonly property int limit: 200
-    
+
     function add(t) {
         if (!t || t.trim() === "")
             return;
-        if (entries.length > 0 && entries[0] === t)
+        if (pinned.indexOf(t) >= 0 || (entries.length > 0 && entries[0] === t))
             return;
         entries = [t].concat(entries.filter(e => e !== t)).slice(0, limit);
         save();
@@ -31,16 +37,43 @@ Singleton {
 
     function remove(t) {
         entries = entries.filter(e => e !== t);
+        pinned = pinned.filter(e => e !== t);
+        save();
+    }
+    function pin(t) {
+        entries = entries.filter(e => e !== t);
+        pinned = [t].concat(pinned.filter(e => e !== t));
+        save();
+    }
+    function unpin(t) {
+        pinned = pinned.filter(e => e !== t);
+        entries = [t].concat(entries.filter(e => e !== t)).slice(0, limit);
         save();
     }
 
+    // Gone at once, from the disk too; for a few seconds it can come back (Undo).
+    property var undoable: null
     function clear() {
+        undoable = entries;
         entries = [];
         save();
+        undoTimer.restart();
+    }
+    function undo() {
+        if (undoable === null)
+            return;
+        entries = entries.concat(undoable.filter(e => entries.indexOf(e) < 0)).slice(0, limit);
+        undoable = null;
+        save();
+    }
+    Timer {
+        id: undoTimer
+        interval: 8000
+        onTriggered: clip.undoable = null
     }
 
     function save() {
-        store.setText(JSON.stringify(entries));
+        store.setText(JSON.stringify({ entries: entries, pinned: pinned }));
     }
 
     // A Quickshell that dies abruptly leaves its wl-paste alive and orphaned. Before
@@ -76,9 +109,11 @@ Singleton {
         printErrors: false
         onLoaded: {
             try {
-                const v = JSON.parse(text());
-                if (Array.isArray(v))
-                    clip.entries = v.concat(clip.entries.filter(e => v.indexOf(e) < 0)).slice(0, clip.limit);
+                const j = JSON.parse(text());
+                const v = Array.isArray(j) ? j : (j.entries ?? []);
+                const p = Array.isArray(j) ? [] : (j.pinned ?? []);
+                clip.pinned = p.concat(clip.pinned.filter(e => p.indexOf(e) < 0));
+                clip.entries = v.concat(clip.entries.filter(e => v.indexOf(e) < 0)).filter(e => clip.pinned.indexOf(e) < 0).slice(0, clip.limit);
             } catch (e) {
                 console.warn("clip: unreadable history, starting from scratch");
             }

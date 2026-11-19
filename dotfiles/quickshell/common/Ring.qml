@@ -17,7 +17,7 @@ Item {
     implicitHeight: size
 
     property real drawn: value
-    Behavior on drawn { NumberAnimation { duration: 450; easing.type: Easing.OutCubic } }
+    Behavior on drawn { NumberAnimation { duration: Theme.ms(450); easing.type: Easing.OutCubic } }
 
     Shape {
         anchors.fill: parent

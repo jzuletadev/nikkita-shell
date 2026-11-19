@@ -9,11 +9,33 @@ Rectangle {
     property bool checked: false
     signal toggled
 
+    activeFocusOnTab: true
+    Keys.onPressed: ev => {
+        if (ev.key === Qt.Key_Return || ev.key === Qt.Key_Enter || ev.key === Qt.Key_Space) {
+            sw.toggled();
+            ev.accepted = true;
+        }
+    }
+    FocusRing { inner: sw.radius }
+
     implicitWidth: 44
     implicitHeight: 24
     radius: height / 2
-    color: checked ? Theme.accent : Theme.cardHover
+    // The state rule (Theme): the pointer lightens it and draws a ring while off,
+    // and dims it while on. It never looks like the other state.
+    color: checked ? (area.containsMouse ? Theme.activeHover : Theme.accent)
+                   : (area.containsMouse ? Theme.hoverFill : Theme.cardHover)
     Behavior on color { ColorAnimation { duration: Theme.msFast } }
+
+    Rectangle {
+        anchors.fill: parent
+        radius: parent.radius
+        color: "transparent"
+        border.width: 1
+        border.color: Theme.hoverRing
+        opacity: area.containsMouse && !sw.checked ? 1 : 0
+        Behavior on opacity { NumberAnimation { duration: Theme.msFast } }
+    }
 
     Rectangle {
         width: parent.height - 6
@@ -27,7 +49,9 @@ Rectangle {
     }
 
     MouseArea {
+        id: area
         anchors.fill: parent
+        hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
         onClicked: sw.toggled()
     }

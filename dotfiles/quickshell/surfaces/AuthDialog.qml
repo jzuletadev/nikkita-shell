@@ -161,10 +161,10 @@ Scope {
                     }
                     SequentialAnimation {
                         id: shake
-                        NumberAnimation { target: field; property: "shakeX"; to: -12; duration: 60 }
-                        NumberAnimation { target: field; property: "shakeX"; to: 9; duration: 70 }
-                        NumberAnimation { target: field; property: "shakeX"; to: -5; duration: 70 }
-                        NumberAnimation { target: field; property: "shakeX"; to: 0; duration: 60 }
+                        NumberAnimation { target: field; property: "shakeX"; to: -12; duration: Theme.ms(60) }
+                        NumberAnimation { target: field; property: "shakeX"; to: 9; duration: Theme.ms(70) }
+                        NumberAnimation { target: field; property: "shakeX"; to: -5; duration: Theme.ms(70) }
+                        NumberAnimation { target: field; property: "shakeX"; to: 0; duration: Theme.ms(60) }
                     }
                 }
                 Binding {

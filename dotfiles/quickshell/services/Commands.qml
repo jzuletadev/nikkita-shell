@@ -49,6 +49,13 @@ Singleton {
                                  "-u", critical ? "critical" : "normal", title, body]);
     }
 
+    // A short word about something that just changed (SystemNotices): not kept in the
+    // history, and it replaces the one before (Notifs).
+    function notice(title, body, icon) {
+        Quickshell.execDetached(["notify-send", "-a", "Desktop", "-e", "-h", "string:x-nikita-notice:1",
+                                 "-i", icon || "dialog-information-symbolic", title].concat(body ? [body] : []));
+    }
+
     function run(argv, what, done) {
         runner.createObject(commands, { command: argv, what: what ?? "", done: done ?? null, running: true });
     }

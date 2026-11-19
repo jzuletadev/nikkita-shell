@@ -8,6 +8,8 @@
 //   * Entering the strip widens the zone BEFORE the open delay: otherwise moving
 //     inward leaves the strip and the panel never opens.
 //   * A corner panel opens from either of its two edges (the "L").
+//   * A rim and a soft shadow keep it apart from what is behind; both skip the
+//     stretches along the screen edge (Outline.rim).
 import QtQuick
 import QtQuick.Shapes
 import qs.common
@@ -28,9 +30,12 @@ Item {
     property real depth: 60               // how far it reaches into the screen when open
     property real inset: m.inset
     property bool touchable: true           // a panel you open by touching its edge (not toasts)
-    property bool hoverable: touchable && Prefs.opensOnTouch(name)   // Settings → Panels can turn it off
+    property bool hoverable: touchable && Prefs.opensOnTouch(name) && !m.edgesOff   // Settings → Panels can turn it off
     property color panelColor: Theme.panel
     property bool peekable: touchable       // answers "peek all" (`qs ipc call nikita all`, Settings → Panels)
+    // Only panels in the panel color get a rim and a shadow: not the small colored marks.
+    readonly property bool plain: Qt.colorEqual(panelColor, Theme.panel)
+    property bool shadowed: true            // off while the panel's own size is animating
 
     // ---- state ----
     property bool pinned: false            // keep it open from outside
@@ -214,6 +219,61 @@ Item {
     readonly property real vw: vertical ? extent : width
     readonly property real vh: vertical ? height : extent
     readonly property string outlinePath: Outline.outline(vx, vy, vw, vh, sw, sh, m.radius, Math.min(m.notch, extent))
+    readonly property string rimPath: Outline.rim(vx, vy, vw, vh, sw, sh, m.radius, Math.min(m.notch, extent))
+    // The shadow follows the panel at rest, so opening doesn't redraw it at every frame.
+    readonly property string shadowPath: Outline.rim(x, y, width, height, sw, sh, m.radius, Math.min(m.notch, depth))
+
+    // Wide strokes one over the other: darker near the edge, fading outward. They need
+    // neither an offscreen layer nor a blur, which a full-screen surface would pay for.
+    Shape {
+        x: -panel.x
+        y: -panel.y
+        width: panel.sw
+        height: panel.sh
+        visible: panel.plain && panel.shadowed && opacity > 0
+        opacity: Math.max(0, Math.min(1, (panel.progress - 0.85) / 0.15))
+        preferredRendererType: Shape.CurveRenderer
+        ShapePath {
+            fillColor: "transparent"
+            strokeColor: Theme.panelShadow
+            strokeWidth: 30
+            capStyle: ShapePath.FlatCap
+            joinStyle: ShapePath.RoundJoin
+            PathSvg { path: panel.shadowPath }
+        }
+        ShapePath {
+            fillColor: "transparent"
+            strokeColor: Theme.panelShadow
+            strokeWidth: 22
+            capStyle: ShapePath.FlatCap
+            joinStyle: ShapePath.RoundJoin
+            PathSvg { path: panel.shadowPath }
+        }
+        ShapePath {
+            fillColor: "transparent"
+            strokeColor: Theme.panelShadow
+            strokeWidth: 15
+            capStyle: ShapePath.FlatCap
+            joinStyle: ShapePath.RoundJoin
+            PathSvg { path: panel.shadowPath }
+        }
+        ShapePath {
+            fillColor: "transparent"
+            strokeColor: Theme.panelShadow
+            strokeWidth: 9
+            capStyle: ShapePath.FlatCap
+            joinStyle: ShapePath.RoundJoin
+            PathSvg { path: panel.shadowPath }
+        }
+        ShapePath {
+            fillColor: "transparent"
+            strokeColor: Theme.panelShadow
+            strokeWidth: 4
+            capStyle: ShapePath.FlatCap
+            joinStyle: ShapePath.RoundJoin
+            PathSvg { path: panel.shadowPath }
+        }
+    }
 
     Shape {
         id: shape
@@ -228,6 +288,13 @@ Item {
             strokeColor: "transparent"
             strokeWidth: 0
             PathSvg { path: panel.outlinePath }
+        }
+        ShapePath {
+            fillColor: "transparent"
+            strokeColor: panel.plain ? Theme.panelRim : "transparent"
+            strokeWidth: panel.plain ? 1 : 0
+            capStyle: ShapePath.FlatCap
+            PathSvg { path: panel.rimPath }
         }
     }
 

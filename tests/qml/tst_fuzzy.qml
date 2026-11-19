@@ -60,4 +60,32 @@ TestCase {
         const desc = Fuzzy.fields("net", ["Settings", "Network, wired"]);
         verify(name - desc > 40 * 10);
     }
+
+    // What the launcher lists (Fuzzy.rank).
+    function listed(query, entries) {
+        return Fuzzy.rank(query, entries.map(e => ({ id: e[0], name: e[0], search: e[1] || "" })), () => 0).map(x => x.name);
+    }
+
+    function test_weak_matches_stay_out() {
+        compare(listed("fi", [["Files", "Access files"], ["Turn Wi-Fi off", "Network"], ["Notifications", "history"],
+                              ["Screenshot of a region", ""], ["Sleep", "Locks the screen first"], ["Network", "Wi-Fi, wired"]]),
+                ["Files", "Turn Wi-Fi off"]);
+    }
+
+    function test_scattered_letters_still_find_a_typo() {
+        compare(listed("frfx", [["Firefox"], ["Files"]]), ["Firefox"]);
+    }
+
+    function test_hyphens_do_not_get_in_the_way() {
+        compare(listed("wifi", [["Turn Wi-Fi off"], ["Sound"]]), ["Turn Wi-Fi off"]);
+    }
+
+    function test_descriptions_count_from_three_letters() {
+        compare(listed("net", [["Settings page", "network, wired"], ["Internet"]]), ["Internet", "Settings page"]);
+        compare(listed("ne", [["Settings page", "network, wired"], ["Internet"]]), ["Internet"]);
+    }
+
+    function test_a_description_is_enough_when_no_name_matches() {
+        compare(listed("fi", [["Sleep", "first the lock"], ["Sound", ""]]), ["Sleep"]);
+    }
 }

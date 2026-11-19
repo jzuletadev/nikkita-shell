@@ -1,5 +1,4 @@
 # AUR packages. Edit to taste.
 # Installed by:  ./install.sh --aur   (it builds paru first if it isn't installed)
 brave-bin
-visual-studio-code-bin
 blesh-git

@@ -33,8 +33,41 @@ Column {
     }
 
     Section {
+        title: "System notices"
+        note: "A short word when one of these changes. They stay out of the history, and Do not disturb silences them."
+
+        Repeater {
+            model: SystemNotices.categories
+
+            SettingRow {
+                id: noticeRow
+                required property var modelData
+                icon: modelData.icon
+                title: modelData.title
+                subtitle: modelData.subtitle
+                ToggleSwitch {
+                    anchors.verticalCenter: parent.verticalCenter
+                    checked: Prefs.noticeShown(noticeRow.modelData.id)
+                    onToggled: Prefs.setNoticeShown(noticeRow.modelData.id, !checked)
+                }
+            }
+        }
+    }
+
+    Section {
         title: Notifs.history.length === 0 ? "History" : "History · " + Notifs.history.length
         note: "The last " + Notifs.limit + " are kept, also after a restart. The top-right corner shows them too."
+
+        SettingRow {
+            visible: Notifs.undoable !== null
+            icon: "edit-undo-symbolic"
+            title: "History cleared"
+            PillButton {
+                anchors.verticalCenter: parent.verticalCenter
+                text: "Undo"
+                onClicked: Notifs.undo()
+            }
+        }
 
         SettingRow {
             visible: Notifs.history.length > 0
@@ -72,7 +105,7 @@ Column {
         }
 
         StyledText {
-            visible: Notifs.history.length === 0
+            visible: Notifs.history.length === 0 && Notifs.undoable === null
             width: parent.width
             padding: Theme.spaceL
             text: "Nothing yet."

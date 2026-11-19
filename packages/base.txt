@@ -55,6 +55,5 @@ hyprsunset
 hyprpicker
 pacman-contrib
 gnome-keyring
-# The firewall (scripts/firewall.sh) and pkexec, which Settings asks for root with.
 nftables
 polkit

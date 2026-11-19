@@ -43,7 +43,7 @@ Item {
         property: "t"
         from: 0
         to: 1
-        duration: 460
+        duration: Theme.ms(460)
         easing.type: Easing.OutBack
         easing.overshoot: 1.2
     }

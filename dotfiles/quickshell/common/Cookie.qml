@@ -18,7 +18,7 @@ Item {
     implicitHeight: size
 
     property real drawn: Math.max(0, value)
-    Behavior on drawn { NumberAnimation { duration: 700; easing.type: Easing.OutBack } }
+    Behavior on drawn { NumberAnimation { duration: Theme.ms(700); easing.type: Easing.OutBack } }
 
     // The outline: a circle whose radius waves `bumps` times around it.
     readonly property string outline: {

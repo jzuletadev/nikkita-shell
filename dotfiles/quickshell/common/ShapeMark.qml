@@ -1,6 +1,6 @@
 // ~/nikita-shell/dotfiles/quickshell/common/ShapeMark.qml
-// The desktop's four marks: circle, square, cross, triangle (`index` 0-3, then
-// again). Used by the workspace rail and the lock screen's password.
+// The mark of each typed character on the lock screen: the desktop's hexagon, standing
+// on a point like the logo's, drawn as an outline.
 import QtQuick
 import QtQuick.Shapes
 import qs.common
@@ -8,18 +8,12 @@ import qs.common
 Item {
     id: mark
 
-    property int index: 0
     property int size: 14
     property color color: Theme.accent
     property real stroke: 1.8
 
     // In a 14 px box.
-    readonly property var paths: [
-        "M 1.5 7 A 5.5 5.5 0 1 0 12.5 7 A 5.5 5.5 0 1 0 1.5 7 Z",
-        "M 2.5 2.5 L 11.5 2.5 L 11.5 11.5 L 2.5 11.5 Z",
-        "M 2.6 2.6 L 11.4 11.4 M 11.4 2.6 L 2.6 11.4",
-        "M 7 1.4 L 12.8 11.4 L 1.2 11.4 Z"
-    ]
+    readonly property string path: "M 7 1 L 12.2 4 L 12.2 10 L 7 13 L 1.8 10 L 1.8 4 Z"
 
     implicitWidth: size
     implicitHeight: size
@@ -36,7 +30,7 @@ Item {
             strokeWidth: mark.stroke
             capStyle: ShapePath.RoundCap
             joinStyle: ShapePath.RoundJoin
-            PathSvg { path: mark.paths[((mark.index % 4) + 4) % 4] }
+            PathSvg { path: mark.path }
         }
     }
 }

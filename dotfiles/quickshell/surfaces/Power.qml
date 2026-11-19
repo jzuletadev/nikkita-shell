@@ -14,7 +14,7 @@ EdgePanel {
     edge: "top"
     placement: "start"
     span: m.corner
-    depth: m.cornerHeight
+    depth: content.implicitHeight + 2 * inset
     pinned: pending !== ""
 
     property string pending: ""        // the dangerous action waiting for "yes"
@@ -67,6 +67,7 @@ EdgePanel {
     }
 
     Column {
+        id: content
         anchors.fill: parent
         spacing: Theme.spaceM
 
@@ -211,23 +212,35 @@ EdgePanel {
             }
         }
 
-        Row {
-            id: modes
+        Item {
             width: parent.width
-            spacing: Theme.spaceS
+            height: modes.height
 
-            Repeater {
-                model: PowerModes.list
+            SlideMark {
+                host: modes
+                target: modeRepeater.count > 0 ? modeRepeater.itemAt(PowerModes.list.findIndex(m => m.profile === PowerProfiles.profile)) : null
+            }
+            Row {
+                id: modes
+                width: parent.width
+                spacing: Theme.spaceS
 
-                PillButton {
-                    required property var modelData
-                    width: (modes.width - (PowerModes.list.length - 1) * modes.spacing) / PowerModes.list.length
-                    height: 30
-                    icon: modelData.icon
-                    text: modelData.title
-                    iconSize: 13
-                    active: PowerProfiles.profile === modelData.profile
-                    onClicked: PowerProfiles.profile = modelData.profile
+                Repeater {
+                    id: modeRepeater
+                    model: PowerModes.list
+
+                    PillButton {
+                        required property var modelData
+                        width: (modes.width - (PowerModes.list.length - 1) * modes.spacing) / PowerModes.list.length
+                        height: 30
+                        icon: modelData.icon
+                        text: modelData.title
+                        textSize: Theme.textSmall
+                        iconSize: 12
+                        active: PowerProfiles.profile === modelData.profile
+                        carried: true
+                        onClicked: PowerProfiles.profile = modelData.profile
+                    }
                 }
             }
         }

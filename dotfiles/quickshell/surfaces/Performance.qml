@@ -124,7 +124,7 @@ Item {
                     radius: height / 2
                     width: parent.width * Math.min(1, Math.max(0, reading.hot ? (card.temp || 0) / 100 : card.freq ? card.freq[0] / card.freq[1] : 0))
                     color: reading.hot ? perf.tone(card.temp || 0, 80, 90) : Theme.fg
-                    Behavior on width { NumberAnimation { duration: 600; easing.type: Easing.OutCubic } }
+                    Behavior on width { NumberAnimation { duration: Theme.ms(600); easing.type: Easing.OutCubic } }
                 }
             }
             Glyph {
@@ -437,7 +437,7 @@ Item {
             height: parent.height * Battery.pct / 100
             radius: Theme.radiusL
             color: Theme.alpha(Battery.level, 0.16)
-            Behavior on height { NumberAnimation { duration: 900; easing.type: Easing.OutBack } }
+            Behavior on height { NumberAnimation { duration: Theme.ms(900); easing.type: Easing.OutBack } }
         }
 
         Column {

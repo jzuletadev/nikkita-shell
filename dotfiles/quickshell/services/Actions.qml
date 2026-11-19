@@ -49,6 +49,7 @@ Singleton {
           run: () => Updates.install() },
         // These two type into the launcher instead of closing it.
         { id: "emoji", title: "Emoji", subtitle: "Type : and a name", icon: "face-smile-big-symbolic", keys: "emoji smiley symbols", typed: ":" },
+        { id: "clipboard", title: "Clipboard history", subtitle: "Type ; and part of the text", icon: "edit-paste-symbolic", keys: "clipboard paste copied history pinned", typed: ";" },
         { id: "calculator", title: "Calculator", subtitle: "Type a sum, or = and one", icon: "accessories-calculator-symbolic", keys: "calculator math sum", typed: "=" }
     ]
 }

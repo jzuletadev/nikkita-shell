@@ -19,6 +19,15 @@ Rectangle {
     signal clicked
     signal rightClicked
 
+    activeFocusOnTab: true
+    Keys.onPressed: ev => {
+        if (ev.key === Qt.Key_Return || ev.key === Qt.Key_Enter || ev.key === Qt.Key_Space) {
+            f.clicked();
+            ev.accepted = true;
+        }
+    }
+    FocusRing {}
+
     implicitHeight: 44
     radius: Theme.radiusM
     color: active ? Theme.accentSoft : (hovering || cursor) ? Theme.cardHover : Theme.card

@@ -1,8 +1,9 @@
 // ~/nikita-shell/dotfiles/quickshell/lock/LockView.qml
 //
 // One monitor of the lock screen, and of the login screen (GreeterView): a card
-// over the blurred wallpaper, with the picture (else the initial) in a hexagon on
-// its top edge. Each typed character shows as a ShapeMark. Everything else is in the
+// over the blurred wallpaper, a hexagon standing like the logo's: the picture (else
+// the initial) in its top point, the rocket in the bottom one. Each typed character
+// shows as a ShapeMark. Everything else is in the
 // card's foot: the battery, `footer`, and sleep, restart and shut down, so nobody is
 // stuck here. `ctx` is a LockContext or a GreeterContext.
 import QtQuick
@@ -76,8 +77,8 @@ Item {
     }
     // ---- coming in and going out ----
     property real shown: 0
-    NumberAnimation on shown { id: enter; to: 1; duration: 650; easing.type: Easing.BezierSpline; easing.bezierCurve: Theme.curveEnter }
-    NumberAnimation { id: leave; target: view; property: "shown"; to: 0; duration: 260; easing.type: Easing.BezierSpline; easing.bezierCurve: Theme.curveExit }
+    NumberAnimation on shown { id: enter; to: 1; duration: Theme.ms(650); easing.type: Easing.BezierSpline; easing.bezierCurve: Theme.curveEnter }
+    NumberAnimation { id: leave; target: view; property: "shown"; to: 0; duration: Theme.ms(260); easing.type: Easing.BezierSpline; easing.bezierCurve: Theme.curveExit }
     Connections {
         target: view.ctx
         function onLeavingChanged() {
@@ -170,10 +171,9 @@ Item {
     Item {
         id: card
 
-        // The content's width. The flat top and bottom edges are about as wide; the
-        // side points, deeper on a taller card, are air around it.
+        // The content's width. It sits between the two points, where the card is widest.
         readonly property int inner: Math.round(Math.min(Math.max(view.width * 0.18, 340), 400))
-        readonly property int point: Math.round(height * 0.26)
+        readonly property int point: Math.round(inner * 0.33)
         readonly property real round: 0.08
         // Read over any wallpaper: barely see-through, whatever the panels are. Lit
         // from above: a shade lighter at the top, toward white in the light theme.
@@ -181,11 +181,10 @@ Item {
         readonly property color fillTop: Theme.alpha(Theme.dark ? Theme.mix(Theme.bg, Theme.fg, 0.09) : Theme.mix(Theme.bg, Qt.rgba(1, 1, 1, 1), 0.7), fillOpacity)
         readonly property color fillBottom: Theme.alpha(Theme.dark ? Theme.bg : Theme.mix(Theme.bg, Theme.fg, 0.03), fillOpacity)
 
-        width: inner + 2 * (point + 10)
-        height: content.y + content.height + 30
+        width: Math.max(inner + 72, Math.round(height * Theme.hexRatio))
+        height: content.y + content.height + point + 6
         anchors.centerIn: parent
-        // The picture sticks out on top: down by a part of it, so the whole looks centred.
-        anchors.verticalCenterOffset: avatar.height / 4 + (1 - view.shown) * 34
+        anchors.verticalCenterOffset: (1 - view.shown) * 34
         opacity: Math.min(1, view.shown)
         scale: 0.95 + 0.05 * view.shown
 
@@ -262,8 +261,8 @@ Item {
 
             ParallelAnimation {
                 id: rippleRun
-                NumberAnimation { target: ripple; property: "scale"; from: 1; to: 1.1; duration: 700; easing.type: Easing.OutCubic }
-                NumberAnimation { target: ripple; property: "opacity"; from: ripple.bad ? 0.6 : 0.3; to: 0; duration: 700; easing.type: Easing.OutCubic }
+                NumberAnimation { target: ripple; property: "scale"; from: 1; to: 1.1; duration: Theme.ms(700); easing.type: Easing.OutCubic }
+                NumberAnimation { target: ripple; property: "opacity"; from: ripple.bad ? 0.6 : 0.3; to: 0; duration: Theme.ms(700); easing.type: Easing.OutCubic }
             }
             Timer {
                 running: view.ctx.state === "checking"
@@ -274,20 +273,28 @@ Item {
             }
         }
 
+        Logo {
+            mark: "rocket"
+            size: 46
+            color: Theme.dim
+            x: (card.width - width) / 2
+            y: card.height - card.point + 26
+        }
+
         Avatar {
             id: avatar
-            width: 128
-            height: 112
+            width: Math.round(height * Theme.hexRatio)
+            height: 118
             x: (card.width - width) / 2
-            y: -height / 2 - (1 - Math.min(1, view.shown)) * 14
+            y: 30 - (1 - Math.min(1, view.shown)) * 14
             path: Paths.face(view.ctx.user)
             name: view.ctx.user
         }
 
         Column {
             id: content
-            x: card.point + 10
-            y: avatar.height / 2 + 24
+            x: (card.width - width) / 2
+            y: avatar.y + avatar.height + 12
             width: card.inner
             spacing: 0
 
@@ -338,11 +345,11 @@ Item {
 
                 SequentialAnimation {
                     id: shake
-                    NumberAnimation { target: field; property: "shakeX"; to: -14; duration: 60 }
-                    NumberAnimation { target: field; property: "shakeX"; to: 11; duration: 70 }
-                    NumberAnimation { target: field; property: "shakeX"; to: -7; duration: 70 }
-                    NumberAnimation { target: field; property: "shakeX"; to: 3; duration: 60 }
-                    NumberAnimation { target: field; property: "shakeX"; to: 0; duration: 60 }
+                    NumberAnimation { target: field; property: "shakeX"; to: -14; duration: Theme.ms(60) }
+                    NumberAnimation { target: field; property: "shakeX"; to: 11; duration: Theme.ms(70) }
+                    NumberAnimation { target: field; property: "shakeX"; to: -7; duration: Theme.ms(70) }
+                    NumberAnimation { target: field; property: "shakeX"; to: 3; duration: Theme.ms(60) }
+                    NumberAnimation { target: field; property: "shakeX"; to: 0; duration: Theme.ms(60) }
                 }
 
                 // Invisible: the marks draw it.
@@ -400,7 +407,7 @@ Item {
                         visible: !view.revealed
                         anchors.verticalCenter: parent.verticalCenter
                         x: Math.round((parent.width - width) / 2)
-                        Behavior on x { NumberAnimation { duration: 160; easing.type: Easing.OutCubic } }
+                        Behavior on x { NumberAnimation { duration: Theme.ms(160); easing.type: Easing.OutCubic } }
                         spacing: Theme.spaceS
                         SequentialAnimation on opacity {
                             running: field.checking
@@ -419,7 +426,6 @@ Item {
                                 ShapeMark {
                                     id: shapeMark
                                     anchors.centerIn: parent
-                                    index: markCell.index
                                     color: Theme.fg
                                     stroke: 2
                                     scale: 0
@@ -427,8 +433,8 @@ Item {
                                 }
                                 ParallelAnimation {
                                     running: true
-                                    NumberAnimation { target: shapeMark; property: "scale"; to: 1; duration: 440; easing.type: Easing.OutBack; easing.overshoot: 3 }
-                                    NumberAnimation { target: shapeMark; property: "rotation"; to: 0; duration: 440; easing.type: Easing.OutBack; easing.overshoot: 1.4 }
+                                    NumberAnimation { target: shapeMark; property: "scale"; to: 1; duration: Theme.ms(440); easing.type: Easing.OutBack; easing.overshoot: 3 }
+                                    NumberAnimation { target: shapeMark; property: "rotation"; to: 0; duration: Theme.ms(440); easing.type: Easing.OutBack; easing.overshoot: 1.4 }
                                 }
                             }
                         }

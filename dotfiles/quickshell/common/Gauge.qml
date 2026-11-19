@@ -19,7 +19,7 @@ Item {
     implicitHeight: size
 
     property real drawn: value
-    Behavior on drawn { NumberAnimation { duration: 600; easing.type: Easing.OutCubic } }
+    Behavior on drawn { NumberAnimation { duration: Theme.ms(600); easing.type: Easing.OutCubic } }
 
     readonly property real r: size / 2 - thickness / 2
 

@@ -1,7 +1,7 @@
 // ~/nikita-shell/dotfiles/quickshell/common/HexShape.qml
-// A rounded hexagon, flat on top and bottom, filling its box (a regular one is
-// 1.155 times as wide as tall). The picture frame and mask, and the lock screen's
-// card, which is stretched: its sides have a shallower `point`.
+// The desktop's hexagon, rounded and standing on a point like the one in the logo. It
+// fills its box: `width: height * Theme.hexRatio` gives the logo's proportion. The
+// lock screen's card is wider, with its own `point`. `label` writes inside it.
 import QtQuick
 import QtQuick.Shapes
 import qs.common
@@ -15,13 +15,17 @@ Shape {
     // Overrides `fill` (a LinearGradient from QtQuick.Shapes, in the shape's box).
     property ShapeGradient gradient: null
     property real round: 0.24           // how much of each side the corners take
-    property real point: width * 0.25   // how deep the side points are
+    property real point: height * 0.24  // how tall the top and bottom points are
+    property string label: ""
+    property color labelColor: Theme.fg
+    property int labelSize: Theme.textCaption
+    readonly property real labelWidth: labelText.implicitWidth
 
     preferredRendererType: Shape.CurveRenderer
 
     readonly property string outline: {
         const w = width, h = height, k = round, p = point;
-        const c = [[p, 0], [w - p, 0], [w, h / 2], [w - p, h], [p, h], [0, h / 2]];
+        const c = [[w / 2, 0], [w, p], [w, h - p], [w / 2, h], [0, h - p], [0, p]];
         const lerp = (a, b, f) => [a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f];
         const f = p => p[0].toFixed(2) + " " + p[1].toFixed(2);
         let d = "";
@@ -38,5 +42,15 @@ Shape {
         strokeColor: hex.stroke
         strokeWidth: hex.strokeWidth
         PathSvg { path: hex.outline }
+    }
+
+    StyledText {
+        id: labelText
+        anchors.centerIn: parent
+        visible: hex.label !== ""
+        text: hex.label
+        color: hex.labelColor
+        font.pixelSize: hex.labelSize
+        font.weight: Font.DemiBold
     }
 }

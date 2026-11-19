@@ -28,7 +28,15 @@ EdgePanel {
                 spacing: Theme.spaceS
                 Icon { name: "edit-paste-symbolic"; size: 15; color: Theme.accent; anchors.verticalCenter: parent.verticalCenter }
                 StyledText { text: "Clipboard"; font.weight: Font.DemiBold }
-                StyledText { text: ClipHistory.entries.length; color: Theme.dim; font.pixelSize: Theme.textSmall }
+                HexShape {
+                    visible: ClipHistory.shown.length > 0
+                    anchors.verticalCenter: parent.verticalCenter
+                    height: 20
+                    width: Math.max(Math.round(height * Theme.hexRatio), labelWidth + Theme.spaceS)
+                    fill: Theme.control
+                    label: ClipHistory.shown.length
+                    labelColor: Theme.muted
+                }
             }
             PillButton {
                 anchors.right: parent.right
@@ -38,7 +46,8 @@ EdgePanel {
                 icon: "user-trash-symbolic"
                 iconSize: 14
                 visible: ClipHistory.entries.length > 0
-                tip: "Clear the history"
+                danger: true
+                tip: "Clear the history\nPinned ones stay"
                 onClicked: ClipHistory.clear()
             }
         }
@@ -54,19 +63,37 @@ EdgePanel {
             clip: true
             spacing: Theme.spaceXs
             boundsBehavior: Flickable.StopAtBounds
-            model: ClipHistory.entries
+            model: ClipHistory.shown
 
-            StyledText {
+            Column {
                 anchors.centerIn: parent
                 visible: listView.count === 0
-                text: "Nothing copied yet"
-                color: Theme.dim
+                spacing: Theme.spaceS
+                Logo {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    mark: "rocket"
+                    size: 44
+                    color: Theme.faint
+                }
+                StyledText {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: ClipHistory.undoable !== null ? "History cleared" : "Nothing copied yet\nSearch it from the launcher: ;"
+                    color: Theme.dim
+                }
+                PillButton {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    visible: ClipHistory.undoable !== null
+                    height: 28
+                    text: "Undo"
+                    onClicked: ClipHistory.undo()
+                }
             }
 
             delegate: Rectangle {
                 id: row
                 required property string modelData
                 required property int index
+                readonly property bool isPinned: ClipHistory.pinned.indexOf(modelData) >= 0
                 width: listView.width
                 height: 30
                 radius: Theme.radiusM
@@ -75,13 +102,21 @@ EdgePanel {
 
                 StyledText {
                     anchors.left: parent.left
-                    anchors.leftMargin: Theme.spaceM
-                    anchors.right: removeButton.left
+                    anchors.leftMargin: row.isPinned ? 28 : Theme.spaceM
+                    anchors.right: pinButton.left
                     anchors.rightMargin: Theme.spaceS
                     anchors.verticalCenter: parent.verticalCenter
                     text: row.modelData.replace(/\s+/g, " ").trim()
                     font.pixelSize: Theme.textLabel
                     color: board.copied === row.modelData ? Theme.accent : Theme.fg
+                }
+                Icon {
+                    visible: row.isPinned
+                    x: Theme.spaceM
+                    anchors.verticalCenter: parent.verticalCenter
+                    name: "view-pin-symbolic"
+                    size: 12
+                    color: Theme.muted
                 }
                 MouseArea {
                     id: area
@@ -93,6 +128,20 @@ EdgePanel {
                         board.copied = row.modelData;
                         forgetTimer.restart();
                     }
+                }
+                PillButton {
+                    id: pinButton
+                    anchors.right: removeButton.left
+                    anchors.verticalCenter: parent.verticalCenter
+                    height: 24
+                    flat: true
+                    icon: "view-pin-symbolic"
+                    iconSize: 12
+                    active: row.isPinned
+                    carried: false
+                    tip: row.isPinned ? "Unpin" : "Pin: it stays on top"
+                    opacity: area.containsMouse || hovering || row.isPinned ? 1 : 0
+                    onClicked: row.isPinned ? ClipHistory.unpin(row.modelData) : ClipHistory.pin(row.modelData)
                 }
                 PillButton {
                     id: removeButton
